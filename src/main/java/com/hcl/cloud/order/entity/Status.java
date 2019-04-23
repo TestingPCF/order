@@ -8,7 +8,6 @@ import org.springframework.http.HttpStatus;
  *
  * @author shikhar.a || ankit-kumar
  */
-@SuppressWarnings({"PMD.HiddenField"})
 public class Status {
 
 	/**
@@ -31,13 +30,13 @@ public class Status {
 	/**
 	 * fully parameterized constructor.
 	 *
-	 * @param status
-	 * @param message
+	 * @param statusObj Status object
+	 * @param messageObj Message String
 	 */
-	public Status(final HttpStatus status, final String message) {
+	public Status(final HttpStatus statusObj, final String messageObj) {
 		super();
-		this.status = status;
-		this.message = message;
+		this.status = statusObj;
+		this.message = messageObj;
 	}
 
 	/**
@@ -48,6 +47,7 @@ public class Status {
 	}
 
 	/**
+	 * Getter of status.
 	 * @return the status
 	 */
 	public final HttpStatus status() {
@@ -55,14 +55,16 @@ public class Status {
 	}
 
 	/**
-	 * @param status
+	 * Setter of status.
+	 * @param statusObj
 	 *            the status to set
 	 */
-	public final void setStatus(final HttpStatus status) {
-		this.status = status;
+	public final void setStatus(final HttpStatus statusObj) {
+		this.status = statusObj;
 	}
 
 	/**
+	 * Getter of message.
 	 * @return the message
 	 */
 	public final String getMessage() {
@@ -70,11 +72,11 @@ public class Status {
 	}
 
 	/**
-	 * @param message
+	 * @param messageObj
 	 *            the message to set
 	 */
-	public final void setMessage(final String message) {
-		this.message = message;
+	public final void setMessage(final String messageObj) {
+		this.message = messageObj;
 	}
 
 }

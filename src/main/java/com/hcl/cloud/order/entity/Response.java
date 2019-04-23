@@ -7,11 +7,10 @@ import java.util.Collection;
 /**
  * This is an entity class, which will represent the complete http response
  * along with data in a json format.
- *
+ * @param <E> Order or List
  * @author shikhar.a || ankit-kumar
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@SuppressWarnings({"PMD.HiddenField"})
 public final class Response<E> {
 
 	/**
@@ -31,7 +30,6 @@ public final class Response<E> {
 
 	/**
 	 * setting builder values.
-	 *
 	 * @param builder
 	 *            Builder
 	 */
@@ -42,33 +40,33 @@ public final class Response<E> {
 	}
 
 	/**
-	 * Getter of status
-	 * 
+	 * Getter of status.
 	 * @return status status.
 	 */
-	public final Status getStatus() {
+	public Status getStatus() {
 		return status;
 	}
 
 	/**
 	 * Gets the data.
-	 *
 	 * @return data.
 	 */
-	public final E getData() {
+	public E getData() {
 		return data;
 	}
 
 	/**
-	 * @return Collection
+	 * Returns data set.
+	 * @return Collection data set
 	 */
-	public final Collection<E> getDataSet() {
+	public Collection<E> getDataSet() {
 		return dataSet;
 	}
 
 	/**
+	 * Builder class.
 	 * @param <E>
-	 * @author singh.ro Builder to set corresponding values.
+	 * @author shikhar.a || ankit-kumar
 	 */
 	public static class Builder<E> {
 		/**
@@ -89,7 +87,7 @@ public final class Response<E> {
 		/**
 		 * Object instantiation with mandatory fields.
 		 *
-		 * @param statusObj
+		 * @param statusObj Status Object
 		 */
 		public Builder(final Status statusObj) {
 			this.status = statusObj;
@@ -114,7 +112,8 @@ public final class Response<E> {
 		 *            dataset
 		 * @return builder Builder.
 		 */
-		public final Builder<E> setCollection(final Collection<E> dataSetObj) {
+		public final Builder<E> setCollection(final
+											  Collection<E> dataSetObj) {
 			this.dataSet = dataSetObj;
 			return this;
 		}

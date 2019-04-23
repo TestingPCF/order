@@ -21,7 +21,11 @@ import java.util.List;
 @SuppressWarnings({"PMD.HiddenField"})
 public class Order {
 
+	/**
+	 * Constant PRICE.
+	 */
 	private static final int PRICE = 100;
+
 	/**
 	 * orderId.
 	 */
@@ -102,8 +106,7 @@ public class Order {
 	 */
 	public Order(final String orderStatusObj, final Date orderDateObj,
 			final Date deliveryDateObj, final String userEmailObj,
-			final String paymentModeObj, final String shippingAddressObj,
-			final BigDecimal orderTotalObj,
+			final String paymentModeObj, final String shippingAddressObj, final BigDecimal orderTotalObj,
 			final List<ShoppingItem> shoppingItemsObj) {
 
 		this.orderStatus = orderStatusObj;
