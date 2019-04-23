@@ -29,8 +29,42 @@ public final class Response<E> {
     private final Collection<E> dataSet;
 
     /**
-     * @author singh.ro Builder to set corresponding values.
+     * setting builder values.
+     *
+     * @param builder
+     */
+    private Response(final Builder<E> builder) {
+        this.data = builder.data;
+        this.status = builder.status;
+        this.dataSet = builder.dataSet;
+    }
+
+    /**
+     * @return status.
+     */
+    public Status getStatus() {
+        return status;
+    }
+
+    /**
+     * Gets the data.
+     *
+     * @return data.
+     */
+    public E getData() {
+        return data;
+    }
+
+    /**
+     * @return Collection
+     */
+    public Collection<E> getDataSet() {
+        return dataSet;
+    }
+
+    /**
      * @param <E>
+     * @author singh.ro Builder to set corresponding values.
      */
     public static class Builder<E> {
         /**
@@ -80,7 +114,6 @@ public final class Response<E> {
         }
 
         /**
-         *
          * /** ResponseStatus<E>.
          *
          * @return responseStatus.
@@ -88,40 +121,6 @@ public final class Response<E> {
         public final Response<E> build() {
             return new Response<E>(this);
         }
-    }
-
-    /**
-     * setting builder values.
-     *
-     * @param builder
-     */
-    private Response(final Builder<E> builder) {
-        this.data = builder.data;
-        this.status = builder.status;
-        this.dataSet = builder.dataSet;
-    }
-
-    /**
-     * @return status.
-     */
-    public Status getStatus() {
-        return status;
-    }
-
-    /**
-     * Gets the data.
-     *
-     * @return data.
-     */
-    public E getData() {
-        return data;
-    }
-
-    /**
-     * @return Collection
-     */
-    public Collection<E> getDataSet() {
-        return dataSet;
     }
 
 }

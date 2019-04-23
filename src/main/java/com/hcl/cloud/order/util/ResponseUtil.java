@@ -1,6 +1,5 @@
 package com.hcl.cloud.order.util;
 
-import com.hcl.cloud.order.constant.OrderConstant;
 import com.hcl.cloud.order.entity.Order;
 import com.hcl.cloud.order.entity.Response;
 import com.hcl.cloud.order.entity.Status;
@@ -19,6 +18,7 @@ public class ResponseUtil {
 
     /**
      * This method will prepare a ResponseEntity and return the same.
+     *
      * @param httpStatus
      * @param responseString
      * @param data
@@ -29,10 +29,10 @@ public class ResponseUtil {
         ResponseEntity entity;
         Status status = new Status(httpStatus, responseString);
         Response<Order> response = null;//new Response.Builder<String>(status).build();
-        if(data instanceof Collection) {
+        if (data instanceof Collection) {
             List<Order> orderList = (List<Order>) data;
             response = new Response.Builder<Order>(status).setCollection(orderList).build();
-        } else{
+        } else {
             Order order = (Order) data;
             response = new Response.Builder<Order>(status).setEntity(order).build();
         }

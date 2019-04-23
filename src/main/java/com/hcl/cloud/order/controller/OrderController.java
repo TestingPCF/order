@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 2019.
+ */
 package com.hcl.cloud.order.controller;
 
 import com.hcl.cloud.order.constant.OrderConstant;
@@ -17,6 +20,7 @@ import java.util.List;
 
 /**
  * This is controller class for Order, it will be responsible to handle all the order related requests.
+ *
  * @author shikhar.a || ankit-kumar
  */
 @RestController
@@ -24,15 +28,14 @@ import java.util.List;
 public class OrderController {
 
     /**
+     * Logger
+     */
+    private static Logger logger = LoggerFactory.getLogger(OrderController.class);
+    /**
      * This is an autowired object of our order service.
      */
     @Autowired
     private OrderService orderService;
-
-    /**
-     * Logger
-     */
-    private static Logger logger = LoggerFactory.getLogger(OrderController.class);
 
     /**
      * This is a method to handle POST requests for checkout process.
@@ -46,8 +49,8 @@ public class OrderController {
             Order orderEntity = orderService.checkout(cart);
             return ResponseUtil.getResponseEntity(HttpStatus.CREATED, OrderConstant.ORDER_CREATED
                     + orderEntity.getOrderId(), null);
-        } catch (Exception e){
-            logger.error(e.getMessage(),e);
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
             return ResponseUtil.getResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR, OrderConstant.ORDER_FAILED
                     , null);
         }
@@ -63,11 +66,11 @@ public class OrderController {
     @GetMapping("/{orderId}")
     public ResponseEntity<Order> getOrder(@PathVariable Long orderId
             , @RequestHeader(value = "authToken", required = true) String authToken) {
-        try{
+        try {
             Order orderEntity = orderService.getOrder(orderId);
             return ResponseUtil.getResponseEntity(HttpStatus.OK, OrderConstant.ORDER_SUCCESS, orderEntity);
-        } catch (Exception e){
-            logger.error(e.getMessage(),e);
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
             return ResponseUtil.getResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR, OrderConstant.ORDER_FAILED
                     , null);
         }
@@ -84,8 +87,8 @@ public class OrderController {
         try {
             List<Order> orderEntityList = orderService.getAllOrders();
             return ResponseUtil.getResponseEntity(HttpStatus.OK, OrderConstant.ORDER_SUCCESS, orderEntityList);
-        }  catch (Exception e){
-            logger.error(e.getMessage(),e);
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
             return ResponseUtil.getResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR, OrderConstant.ORDER_FAILED
                     , null);
         }
@@ -106,8 +109,8 @@ public class OrderController {
             orderEntity.setOrderStatus(status);
             orderService.updateOrder(orderEntity);
             return ResponseUtil.getResponseEntity(HttpStatus.OK, OrderConstant.ORDER_UPDATED, null);
-        }  catch (Exception e){
-            logger.error(e.getMessage(),e);
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
             return ResponseUtil.getResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR, OrderConstant.ORDER_FAILED
                     , null);
         }

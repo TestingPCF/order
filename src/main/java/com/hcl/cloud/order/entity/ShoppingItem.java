@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 
 /**
  * This is entity class for Shopping Item.
+ *
  * @author shikhar.a || ankit-kumar
  */
 @Entity
@@ -14,7 +15,7 @@ import java.math.BigDecimal;
 public class ShoppingItem {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE , generator = "shopping_item_sequence")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "shopping_item_sequence")
     @SequenceGenerator(name = "shopping_item_sequence", sequenceName = "SHOPPING_ITEM_SEQ")
     private Long shoppingItemId;
 

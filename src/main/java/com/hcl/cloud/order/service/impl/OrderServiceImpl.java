@@ -14,8 +14,8 @@ import java.util.List;
  * This has the method definition of methods which will be used for Order related operations
  * such as insert, update, get.
  *
- * @see com.hcl.cloud.order.service.OrderService
  * @author shikhar.a || ankit-kumar
+ * @see com.hcl.cloud.order.service.OrderService
  */
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -62,7 +62,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Order getOrder(Long orderId) {
         Order persistedOrder = orderRepositorySql.getOne(orderId);
-         return persistedOrder;
+        return persistedOrder;
     }
 
     /**

@@ -12,8 +12,8 @@ public class OrderUtil {
 
     private static Logger logger = LoggerFactory.getLogger(OrderUtil.class);
 
-    public static String converObjectToJsonString(Object object){
-        if(object!=null){
+    public static String converObjectToJsonString(Object object) {
+        if (object != null) {
             try {
                 return new ObjectMapper().writeValueAsString(object);
             } catch (JsonProcessingException e) {
@@ -25,8 +25,8 @@ public class OrderUtil {
 
     }
 
-    public static Order converJsonStringToObject(String object){
-        if(object!=null){
+    public static Order converJsonStringToObject(String object) {
+        if (object != null) {
             try {
                 return new ObjectMapper().readValue(object, Order.class);
             } catch (JsonProcessingException e) {

@@ -1,6 +1,5 @@
 package com.hcl.cloud.order.exception;
 
-import com.hcl.cloud.order.entity.Order;
 import com.hcl.cloud.order.entity.Response;
 import com.hcl.cloud.order.entity.Status;
 import org.springframework.http.HttpHeaders;
@@ -11,8 +10,6 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-
-import java.util.Date;
 
 @ControllerAdvice
 @RestController

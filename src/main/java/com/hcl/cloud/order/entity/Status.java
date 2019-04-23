@@ -28,6 +28,7 @@ public class Status {
 
     /**
      * fully parameterized constructor.
+     *
      * @param status
      * @param message
      */

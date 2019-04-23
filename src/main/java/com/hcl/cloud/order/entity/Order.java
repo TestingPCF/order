@@ -1,6 +1,5 @@
 package com.hcl.cloud.order.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import javax.persistence.*;
@@ -12,17 +11,18 @@ import java.util.List;
 
 /**
  * This is entity class for Order.
+ *
  * @author shikhar.a || ankit-kumar
  */
 @Entity
 @Table(name = "TORDER")
-@Access(value=AccessType.FIELD)
+@Access(value = AccessType.FIELD)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Order {
 
     @Id
     @Column(name = "order_id", unique = true, nullable = false)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE , generator = "order_sequence")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "order_sequence")
     @SequenceGenerator(name = "order_sequence", sequenceName = "ORDER_SEQ")
     private Long orderId;
 
@@ -70,6 +70,29 @@ public class Order {
         this.shippingAddress = shippingAddress;
         this.orderTotal = orderTotal;
         this.shoppingItems = shoppingItems;
+    }
+
+    /**
+     * This will return a sample order object.
+     * [For testing purpose only]
+     *
+     * @return Order
+     */
+    public static Order getSampleOrder() {
+        Order order = new Order();
+        ShoppingItem item = new ShoppingItem("Iphone_16GB", 1, new BigDecimal(100), new BigDecimal(100), new BigDecimal(100));
+        item.setOrder(order);
+        ArrayList items = new ArrayList();
+        items.add(item);
+        order.setOrderDate(new Date());
+        order.setOrderStatus("IN_PROGRESS");
+        order.setOrderTotal(new BigDecimal("200"));
+        order.setUserEmail("shikhar.a@hcl.com");
+        order.setShippingAddress("Noida, UP");
+        order.setPaymentMode("CASH");
+        order.setShoppingItems(new ArrayList<ShoppingItem>(items));
+
+        return order;
     }
 
     public Long getOrderId() {
@@ -142,27 +165,5 @@ public class Order {
 
     public void setShoppingItems(List<ShoppingItem> shoppingItems) {
         this.shoppingItems = shoppingItems;
-    }
-
-    /**
-     * This will return a sample order object.
-     * [For testing purpose only]
-     * @return Order
-     */
-    public static Order getSampleOrder(){
-        Order order = new Order();
-        ShoppingItem item = new ShoppingItem("Iphone_16GB", 1, new BigDecimal(100), new BigDecimal(100), new BigDecimal(100));
-        item.setOrder(order);
-        ArrayList items = new ArrayList();
-        items.add(item);
-        order.setOrderDate(new Date());
-        order.setOrderStatus("IN_PROGRESS");
-        order.setOrderTotal(new BigDecimal("200"));
-        order.setUserEmail("shikhar.a@hcl.com");
-        order.setShippingAddress("Noida, UP");
-        order.setPaymentMode("CASH");
-        order.setShoppingItems(new ArrayList<ShoppingItem>(items));
-
-        return order;
     }
 }

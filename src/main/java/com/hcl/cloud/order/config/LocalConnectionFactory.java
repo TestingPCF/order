@@ -11,14 +11,14 @@
 // * This is a connection factory which will return us the database connection for dev environment.
 // * We are following Strategic pattern here using profiling concept.
 // */
-////@Profile("dev")
-////@Configuration
-////public class LocalConnectionFactory {
-////
-////    @Bean
-////    public DataSource getLocalDataSource(){
-////        DriverManagerDataSource dataSource = new DriverManagerDataSource("jdbc:mysql://localhost:3306/order","root","admin");
-////        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-////        return dataSource;
-////    }
-////}
+//@Profile("dev")
+//@Configuration
+//public class LocalConnectionFactory {
+//
+//    @Bean
+//    public DataSource getLocalDataSource(){
+//        DriverManagerDataSource dataSource = new DriverManagerDataSource("jdbc:mysql://localhost:3306/order","root","admin");
+//        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
+//        return dataSource;
+//    }
+//}
