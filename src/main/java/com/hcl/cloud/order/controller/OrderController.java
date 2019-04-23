@@ -1,14 +1,23 @@
 package com.hcl.cloud.order.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.hcl.cloud.order.constant.OrderConstant;
 import com.hcl.cloud.order.entity.Cart;
 import com.hcl.cloud.order.entity.Order;
-import com.hcl.cloud.order.repository.OrderRepository;
+import com.hcl.cloud.order.entity.OrderEntity;
+import com.hcl.cloud.order.service.OrderService;
+import com.hcl.cloud.order.util.OrderUtil;
+import com.hcl.cloud.order.util.ResponseUtil;
+import org.apache.juli.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.codec.json.Jackson2JsonEncoder;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,10 +29,15 @@ import java.util.List;
 public class OrderController {
 
     /**
-     * This is an autowired object of our mongo repository.
+     * This is an autowired object of our order service.
      */
     @Autowired
-    private OrderRepository orderRepository;
+    private OrderService orderService;
+
+    /**
+     * Logger
+     */
+    private static Logger logger = LoggerFactory.getLogger(OrderController.class);
 
     /**
      * This is a method to handle POST requests for checkout process.
@@ -33,9 +47,18 @@ public class OrderController {
      */
     @PostMapping
     public ResponseEntity createOrder(@RequestBody Cart cart) {
-        Order order = Order.getSampleOrder();
-        orderRepository.save(order);
-        return new ResponseEntity<>("Your order Id is :: "+ order.getOrderId(), HttpStatus.CREATED);
+        try {
+            OrderEntity orderEntity = orderService.checkout(cart);
+            return ResponseUtil.getResponseEntity(HttpStatus.CREATED, OrderConstant.ORDER_CREATED
+                    + orderEntity.getOrderId(), null);
+        }catch (Exception e){
+            logger.error(e.getMessage(),e);
+            return ResponseUtil.getResponseEntity(HttpStatus.BAD_REQUEST, OrderConstant.ORDER_FAILED
+                    , null);
+        }
+
+       // return ResponseUtil.getResponseEntity(HttpStatus.BAD_REQUEST, OrderConstant.ORDER_FAILED, null);
+
     }
 
     /**
@@ -46,10 +69,11 @@ public class OrderController {
      * @return Response Entity
      */
     @GetMapping("/{orderId}")
-    public ResponseEntity<Order> getOrder(@PathVariable String orderId
+    public ResponseEntity<Order> getOrder(@PathVariable Long orderId
             , @RequestHeader(value = "authToken", required = true) String authToken) {
-        Order order = orderRepository.findById(orderId).get();
-        return new ResponseEntity<Order>(order, HttpStatus.OK);
+        OrderEntity orderEntity = orderService.getOrder(orderId);
+        Order order = OrderUtil.converJsonStringToObject(orderEntity.getOrderJSON());
+        return ResponseUtil.getResponseEntity(HttpStatus.OK, OrderConstant.ORDER_SUCCESS, order);
     }
 
     /**
@@ -60,8 +84,15 @@ public class OrderController {
      */
     @GetMapping
     public ResponseEntity getAllOrders(@RequestHeader(value = "authToken", required = true) String authToken) {
-        List<Order> orderList = orderRepository.findAll();
-        return new ResponseEntity<List>(orderList, HttpStatus.OK);
+        List<OrderEntity> orderEntityList = orderService.getAllOrders();
+        List<Order> orderList = null;
+
+        if(!CollectionUtils.isEmpty(orderEntityList)){
+            orderEntityList.forEach(
+                    (n)-> orderList.add(OrderUtil.converJsonStringToObject(n.getOrderJSON())));
+
+        }
+        return ResponseUtil.getResponseEntity(HttpStatus.OK, OrderConstant.ORDER_SUCCESS, orderList);
     }
 
     /**
@@ -74,9 +105,14 @@ public class OrderController {
     @PutMapping
     public ResponseEntity updateOrder(@RequestBody Order order) {
         String status = order.getOrderStatus();
-        order = orderRepository.findById(order.getOrderId()).get();
-        order.setOrderStatus(status);
-        orderRepository.save(order);
-        return new ResponseEntity<>(order.getOrderId() + " Updated Successfully", HttpStatus.OK);
+        OrderEntity orderEntity = orderService.getOrder(order.getOrderId());
+        Order orderModified = OrderUtil.converJsonStringToObject(orderEntity.getOrderJSON());
+
+        orderModified.setOrderStatus(status);
+        orderEntity.setOrderJSON(OrderUtil.converObjectToJsonString(orderModified));
+        orderService.updateOrder(orderEntity);
+        return ResponseUtil.getResponseEntity(HttpStatus.OK, OrderConstant.ORDER_UPDATED, null);
     }
+
+
 }

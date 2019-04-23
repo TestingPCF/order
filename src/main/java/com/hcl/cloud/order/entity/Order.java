@@ -18,7 +18,7 @@ import java.util.List;
 public class Order {
 
     @Id
-    private String orderId;
+    private Long orderId;
 
     private String orderStatus;
 
@@ -41,8 +41,8 @@ public class Order {
     public Order() {
     }
 
-    public Order(String orderId, String orderStatus, Date orderDate, Date deliveryDate, String userEmail, String paymentMode, String shippingAddress, BigDecimal orderTotal, List<ShoppingItem> shoppingItems) {
-        this.orderId = orderId;
+    public Order(String orderStatus, Date orderDate, Date deliveryDate, String userEmail, String paymentMode, String shippingAddress, BigDecimal orderTotal, List<ShoppingItem> shoppingItems) {
+
         this.orderStatus = orderStatus;
         this.orderDate = orderDate;
         this.deliveryDate = deliveryDate;
@@ -53,11 +53,11 @@ public class Order {
         this.shoppingItems = shoppingItems;
     }
 
-    public String getOrderId() {
+    public Long getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(String orderId) {
+    public void setOrderId(Long orderId) {
         this.orderId = orderId;
     }
 
