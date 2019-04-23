@@ -5,7 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 /**
- * This is an interface which extends MongoRepository interface. It will be responsible to talk to mongo database.
+ * This is an interface which extends MongoRepository interface. It will be
+ * responsible to talk to mongo database.
  *
  * @author shikhar.a || ankit-kumar
  */

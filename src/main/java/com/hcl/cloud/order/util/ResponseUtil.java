@@ -16,27 +16,32 @@ import java.util.List;
  */
 public class ResponseUtil {
 
-    /**
-     * This method will prepare a ResponseEntity and return the same.
-     *
-     * @param httpStatus
-     * @param responseString
-     * @param data
-     * @return
-     */
-    public static final ResponseEntity getResponseEntity(HttpStatus httpStatus, String responseString
-            , Object data) {
-        ResponseEntity entity;
-        Status status = new Status(httpStatus, responseString);
-        Response<Order> response = null;//new Response.Builder<String>(status).build();
-        if (data instanceof Collection) {
-            List<Order> orderList = (List<Order>) data;
-            response = new Response.Builder<Order>(status).setCollection(orderList).build();
-        } else {
-            Order order = (Order) data;
-            response = new Response.Builder<Order>(status).setEntity(order).build();
-        }
+	/**
+	 * This method will prepare a ResponseEntity and return the same.
+	 *
+	 * @param httpStatus
+	 *            http Status
+	 * @param responseString
+	 *            response String
+	 * @param data
+	 *            data
+	 * @return ResponseEntity entity object
+	 */
+	public static final ResponseEntity getResponseEntity(final HttpStatus httpStatus,
+			final String responseString, final Object data) {
+		ResponseEntity entity;
+		Status status = new Status(httpStatus, responseString);
+		Response<Order> response = null;
+		if (data instanceof Collection) {
+			List<Order> orderList = (List<Order>) data;
+			response = new Response.Builder<Order>(status)
+					.setCollection(orderList).build();
+		} else {
+			Order order = (Order) data;
+			response = new Response.Builder<Order>(status).setEntity(order)
+					.build();
+		}
 
-        return new ResponseEntity<Response<Order>>(response, httpStatus);
-    }
+		return new ResponseEntity<Response<Order>>(response, httpStatus);
+	}
 }

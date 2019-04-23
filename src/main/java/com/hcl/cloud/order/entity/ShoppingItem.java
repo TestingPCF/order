@@ -14,217 +14,238 @@ import java.math.BigDecimal;
 @Table(name = "shopping_items")
 public class ShoppingItem {
 
-    /**
-     * shoppingItemId.
-     */
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "shopping_item_sequence")
-    @SequenceGenerator(name = "shopping_item_sequence", sequenceName = "SHOPPING_ITEM_SEQ")
-    private Long shoppingItemId;
+	/**
+	 * shoppingItemId.
+	 */
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "shopping_item_sequence")
+	@SequenceGenerator(name = "shopping_item_sequence", sequenceName = "SHOPPING_ITEM_SEQ")
+	private Long shoppingItemId;
 
-    /**
-     * skuCode.
-     */
-    private String skuCode;
+	/**
+	 * skuCode.
+	 */
+	private String skuCode;
 
-    /**
-     * quantity.
-     */
-    private Integer quantity;
+	/**
+	 * quantity.
+	 */
+	private Integer quantity;
 
-    /**
-     * listPrice.
-     */
-    private BigDecimal listPrice;
+	/**
+	 * listPrice.
+	 */
+	private BigDecimal listPrice;
 
-    /**
-     * salePrice.
-     */
-    private BigDecimal salePrice;
+	/**
+	 * salePrice.
+	 */
+	private BigDecimal salePrice;
 
-    /**
-     * totalPrice.
-     */
-    private BigDecimal totalPrice;
+	/**
+	 * totalPrice.
+	 */
+	private BigDecimal totalPrice;
 
-    /**
-     * order.
-     */
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "fk_order")
-    @JsonIgnore
-    private Order order;
+	/**
+	 * order.
+	 */
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "fk_order")
+	@JsonIgnore
+	private Order order;
 
-    /**
-     * ShoppingItem.
-     */
-    public ShoppingItem() {
-    }
+	/**
+	 * ShoppingItem.
+	 */
+	public ShoppingItem() {
+	}
 
-    /**
-     * ShoppingItem.
-     *
-     * @param skuCode Sku Code
-     * @param quantity Quantity
-     * @param listPrice List Price
-     * @param salePrice Sale Price
-     * @param totalPrice Total Price
-     */
-    public ShoppingItem(final String skuCode, final Integer quantity, final BigDecimal listPrice
-            , final BigDecimal salePrice, final BigDecimal totalPrice) {
-        this.skuCode = skuCode;
-        this.quantity = quantity;
-        this.listPrice = listPrice;
-        this.salePrice = salePrice;
-        this.totalPrice = totalPrice;
-    }
+	/**
+	 * ShoppingItem.
+	 *
+	 * @param skuCodeObj
+	 *            Sku Code
+	 * @param quantityObj
+	 *            Quantity
+	 * @param listPriceObj
+	 *            List Price
+	 * @param salePriceObj
+	 *            Sale Price
+	 * @param totalPriceObj
+	 *            Total Price
+	 */
+	public ShoppingItem(final String skuCodeObj, final Integer quantityObj,
+			final BigDecimal listPriceObj, final BigDecimal salePriceObj,
+			final BigDecimal totalPriceObj) {
+		this.skuCode = skuCodeObj;
+		this.quantity = quantityObj;
+		this.listPrice = listPriceObj;
+		this.salePrice = salePriceObj;
+		this.totalPrice = totalPriceObj;
+	}
 
-    /**
-     * ShoppingItem.
-     *
-     * @param shoppingItemId Item Id
-     * @param skuCode Sku Code
-     * @param quantity Quantity
-     * @param listPrice List Price
-     * @param salePrice Sale Price
-     * @param totalPrice Total Price
-     * @param order Order
-     */
-    public ShoppingItem(final Long shoppingItemId, final String skuCode, final Integer quantity
-            , final BigDecimal listPrice, final BigDecimal salePrice, final BigDecimal totalPrice
-            , final Order order) {
-        this.shoppingItemId = shoppingItemId;
-        this.skuCode = skuCode;
-        this.quantity = quantity;
-        this.listPrice = listPrice;
-        this.salePrice = salePrice;
-        this.totalPrice = totalPrice;
-        this.order = order;
-    }
+	/**
+	 * ShoppingItem.
+	 *
+	 * @param shoppingItemIdObj
+	 *            Item Id
+	 * @param skuCodeObj
+	 *            Sku Code
+	 * @param quantityObj
+	 *            Quantity
+	 * @param listPriceObj
+	 *            List Price
+	 * @param salePriceObj
+	 *            Sale Price
+	 * @param totalPriceObj
+	 *            Total Price
+	 * @param orderObj
+	 *            Order
+	 */
+	public ShoppingItem(final Long shoppingItemIdObj, final String skuCodeObj,
+			final Integer quantityObj, final BigDecimal listPriceObj,
+			final BigDecimal salePriceObj, final BigDecimal totalPriceObj,
+			final Order orderObj) {
+		this.shoppingItemId = shoppingItemIdObj;
+		this.skuCode = skuCodeObj;
+		this.quantity = quantityObj;
+		this.listPrice = listPriceObj;
+		this.salePrice = salePriceObj;
+		this.totalPrice = totalPriceObj;
+		this.order = orderObj;
+	}
 
-    /**
-     * getSkuCode.
-     *
-     * @return skuCode Code
-     */
-    public final String getSkuCode() {
-        return skuCode;
-    }
+	/**
+	 * getSkuCode.
+	 *
+	 * @return skuCode Code
+	 */
+	public final String getSkuCode() {
+		return skuCode;
+	}
 
-    /**
-     * setSkuCode.
-     *
-     * @param skuCode Code
-     */
-    public final void setSkuCode(final String skuCode) {
-        this.skuCode = skuCode;
-    }
+	/**
+	 * setSkuCode.
+	 *
+	 * @param skuCodeObj
+	 *            Code
+	 */
+	public final void setSkuCode(final String skuCodeObj) {
+		this.skuCode = skuCodeObj;
+	}
 
-    /**
-     * getQuantity.
-     *
-     * @return quantity Quantity
-     */
-    public final Integer getQuantity() {
-        return quantity;
-    }
+	/**
+	 * getQuantity.
+	 *
+	 * @return quantity Quantity
+	 */
+	public final Integer getQuantity() {
+		return quantity;
+	}
 
-    /**
-     * setQuantity.
-     *
-     * @param quantity Quantity
-     */
-    public final void setQuantity(final Integer quantity) {
-        this.quantity = quantity;
-    }
+	/**
+	 * setQuantity.
+	 *
+	 * @param quantityObj
+	 *            Quantity
+	 */
+	public final void setQuantity(final Integer quantityObj) {
+		this.quantity = quantityObj;
+	}
 
-    /**
-     * getListPrice.
-     *
-     * @return listPrice List Price
-     */
-    public final BigDecimal getListPrice() {
-        return listPrice;
-    }
+	/**
+	 * getListPrice.
+	 *
+	 * @return listPrice List Price
+	 */
+	public final BigDecimal getListPrice() {
+		return listPrice;
+	}
 
-    /**
-     * setListPrice.
-     *
-     * @param listPrice List Price
-     */
-    public final void setListPrice(final BigDecimal listPrice) {
-        this.listPrice = listPrice;
-    }
+	/**
+	 * setListPrice.
+	 *
+	 * @param listPriceObj
+	 *            List Price
+	 */
+	public final void setListPrice(final BigDecimal listPriceObj) {
+		this.listPrice = listPriceObj;
+	}
 
-    /**
-     * getSalePrice.
-     *
-     * @return salePrice Sale Price
-     */
-    public final BigDecimal getSalePrice() {
-        return salePrice;
-    }
+	/**
+	 * getSalePrice.
+	 *
+	 * @return salePrice Sale Price
+	 */
+	public final BigDecimal getSalePrice() {
+		return salePrice;
+	}
 
-    /**
-     * setSalePrice.
-     *
-     * @param salePrice Sale Price
-     */
-    public final void setSalePrice(final BigDecimal salePrice) {
-        this.salePrice = salePrice;
-    }
+	/**
+	 * setSalePrice.
+	 *
+	 * @param salePriceObj
+	 *            Sale Price
+	 */
+	public final void setSalePrice(final BigDecimal salePriceObj) {
+		this.salePrice = salePriceObj;
+	}
 
-    /**
-     * getTotalPrice.
-     *
-     * @return totalPrice Total Price
-     */
-    public final BigDecimal getTotalPrice() {
-        return totalPrice;
-    }
+	/**
+	 * getTotalPrice.
+	 *
+	 * @return totalPrice Total Price
+	 */
+	public final BigDecimal getTotalPrice() {
+		return totalPrice;
+	}
 
-    /**
-     * setTotalPrice.
-     *
-     * @param totalPrice Total Price
-     */
-    public final void setTotalPrice(final BigDecimal totalPrice) {
-        this.totalPrice = totalPrice;
-    }
+	/**
+	 * setTotalPrice.
+	 *
+	 * @param totalPriceObj
+	 *            Total Price
+	 */
+	public final void setTotalPrice(final BigDecimal totalPriceObj) {
+		this.totalPrice = totalPriceObj;
+	}
 
-    /**
-     * getShoppingItemId.
-     *
-     * @return shoppingItemId Item Id
-     */
-    public final Long getShoppingItemId() {
-        return shoppingItemId;
-    }
+	/**
+	 * getShoppingItemId.
+	 *
+	 * @return shoppingItemId Item Id
+	 */
+	public final Long getShoppingItemId() {
+		return shoppingItemId;
+	}
 
-    /**
-     * setShoppingItemId.
-     *
-     * @param shoppingItemId Item Id
-     */
-    public final void setShoppingItemId(final Long shoppingItemId) {
-        this.shoppingItemId = shoppingItemId;
-    }
+	/**
+	 * setShoppingItemId.
+	 *
+	 * @param shoppingItemIdObj
+	 *            Item Id
+	 */
+	public final void setShoppingItemId(final Long shoppingItemIdObj) {
+		this.shoppingItemId = shoppingItemIdObj;
+	}
 
-    /**
-     * getOrder.
-     *
-     * @return order Order object
-     */
-    public final Order getOrder() {
-        return order;
-    }
+	/**
+	 * getOrder.
+	 *
+	 * @return order Order object
+	 */
+	public final Order getOrder() {
+		return order;
+	}
 
-    /**
-     * setOrder.
-     *
-     * @param order Order object
-     */
-    public final void setOrder(final Order order) {
-        this.order = order;
-    }
+	/**
+	 * setOrder.
+	 *
+	 * @param orderObj
+	 *            Order object
+	 */
+	public final void setOrder(final Order orderObj) {
+		this.order = orderObj;
+	}
 }

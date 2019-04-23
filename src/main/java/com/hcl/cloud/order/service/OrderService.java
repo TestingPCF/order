@@ -12,34 +12,38 @@ import java.util.List;
  */
 public interface OrderService {
 
-    /**
-     * This method declaration is for saving a new order.
-     *
-     * @param cart object to be saved
-     * @return Saved order object
-     */
-    public Order checkout(Cart cart);
+	/**
+	 * This method declaration is for saving a new order.
+	 *
+	 * @param cart
+	 *            object to be saved
+	 * @return Saved order object
+	 */
+	Order checkout(Cart cart);
 
-    /**
-     * This method declaration is for updating an order.
-     *
-     * @param order object to be saved
-     * @return Saved order object
-     */
-    public Order updateOrder(Order order);
+	/**
+	 * This method declaration is for updating an order.
+	 *
+	 * @param order
+	 *            object to be saved
+	 * @return Saved order object
+	 */
+	Order updateOrder(Order order);
 
-    /**
-     * This method declaration is for retrieving the details of a particular order.
-     *
-     * @param orderId
-     * @return Order object
-     */
-    public Order getOrder(Long orderId);
+	/**
+	 * This method declaration is for retrieving the details of a particular
+	 * order.
+	 *
+	 * @param orderId
+	 *            ID
+	 * @return Order object
+	 */
+	Order getOrder(Long orderId);
 
-    /**
-     * This method declaration is for retrieving a list of all the orders.
-     *
-     * @return List of orders
-     */
-    public List<Order> getAllOrders();
+	/**
+	 * This method declaration is for retrieving a list of all the orders.
+	 *
+	 * @return List of orders
+	 */
+	List<Order> getAllOrders();
 }

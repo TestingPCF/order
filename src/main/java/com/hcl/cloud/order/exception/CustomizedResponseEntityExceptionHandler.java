@@ -13,25 +13,31 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 /**
  * This is handler for custom exception, which can be used in case of 400.
+ * 
  * @author shikhar.a || ankit-kumar
  */
 @ControllerAdvice
 @RestController
-public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
+public class CustomizedResponseEntityExceptionHandler
+		extends
+			ResponseEntityExceptionHandler {
 
-    /**
-     * handleMethodArgumentNotValid.
-     * @param ex
-     * @param headers
-     * @param status
-     * @param request
-     * @return
-     */
-    @Override
-    protected final ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
-                                                                  HttpHeaders headers, HttpStatus status, WebRequest request) {
-        Status statusObject = new Status(HttpStatus.BAD_REQUEST, ex.getBindingResult().getFieldError().getDefaultMessage());
-        Response response = new Response.Builder(statusObject).build();
-        return new ResponseEntity(response, HttpStatus.BAD_REQUEST);
-    }
+	/**
+	 * handleMethodArgumentNotValid.
+	 * 
+	 * @param ex exception
+	 * @param headers headers
+	 * @param status status
+	 * @param request request
+	 * @return ResponseEntity entity
+	 */
+	@Override
+	protected final ResponseEntity<Object> handleMethodArgumentNotValid(
+			final MethodArgumentNotValidException ex, final HttpHeaders headers,
+			final HttpStatus status, final WebRequest request) {
+		Status statusObject = new Status(HttpStatus.BAD_REQUEST,
+				ex.getBindingResult().getFieldError().getDefaultMessage());
+		Response response = new Response.Builder(statusObject).build();
+		return new ResponseEntity(response, HttpStatus.BAD_REQUEST);
+	}
 }
