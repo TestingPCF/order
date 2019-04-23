@@ -171,7 +171,7 @@ public class OrderControllerTest {
         PowerMockito.mockStatic(Order.class);
         Mockito.when(Order.getSampleOrder()).thenReturn(orderMock);
         Mockito.when(orderService.getOrder(ORDER_ID)).thenReturn(orderMock);
-        Mockito.when(orderMock.getOrderId()).thenReturn(ORDER_ID);
+        orderMock.setOrderId(ORDER_ID);
         Mockito.when(orderService.updateOrder(orderMock)).thenReturn(orderMock);
         Assert.assertEquals(HttpStatus.OK, orderController.updateOrder(orderMock).getStatusCode());
     }
