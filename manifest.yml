@@ -4,7 +4,7 @@ applications:
   memory: 2G
   instances: 1
   random-route: true
-  path: target/order-0.0.1-SNAPSHOT
+  path: target/order-0.0.1-SNAPSHOT.jar
   buildpack: https://github.com/cloudfoundry/java-buildpack.git
   services:
   - dbService
