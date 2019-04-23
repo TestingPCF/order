@@ -154,11 +154,11 @@
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<version>0.8.2</version>
-				<configuration>
+				<!--<configuration>
 					<excludes>
 						<exclude>com.hcl.cloud.order.entity.*</exclude>
 					</excludes>
-				</configuration>
+				</configuration>-->
 				<executions>
 					<execution>
 						<goals>
