@@ -132,8 +132,8 @@ public class OrderControllerTest {
      */
     @Test(expected = Exception.class)
     public final void testGetOrderFail() throws  Exception {
-        PowerMockito.mockStatic(Order.class);
-        Mockito.when(Order.getSampleOrder()).thenReturn(orderMock);
+//        PowerMockito.mockStatic(Order.class);
+//        Mockito.when(Order.getSampleOrder()).thenReturn(orderMock);
         Mockito.when(orderService.getOrder(ORDER_ID)).thenThrow(Exception.class);
         Assert.assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, orderController.getOrder(ORDER_ID,ACCESS_TOKEN).getStatusCode());
     }
