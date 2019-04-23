@@ -1,5 +1,7 @@
 package com.hcl.cloud.order.entity;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -11,6 +13,8 @@ public class Cart {
 
     private String cartId;
     private BigDecimal subTotal;
+
+    @NotNull(message = "Please provide user Id.")
     private String userId;
     private List<ShoppingItem> cartItems;
 

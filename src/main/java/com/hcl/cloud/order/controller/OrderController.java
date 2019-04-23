@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -40,7 +41,7 @@ public class OrderController {
      * @return ResponseEntity
      */
     @PostMapping
-    public ResponseEntity createOrder(@RequestBody Cart cart) {
+    public ResponseEntity createOrder(@Valid @RequestBody Cart cart) {
         try {
             Order orderEntity = orderService.checkout(cart);
             return ResponseUtil.getResponseEntity(HttpStatus.CREATED, OrderConstant.ORDER_CREATED

@@ -160,7 +160,7 @@ public class Order {
         order.setOrderTotal(new BigDecimal("200"));
         order.setUserEmail("shikhar.a@hcl.com");
         order.setShippingAddress("Noida, UP");
-        //order.setPaymentMode("CASH");
+        order.setPaymentMode("CASH");
         order.setShoppingItems(new ArrayList<ShoppingItem>(items));
 
         return order;
