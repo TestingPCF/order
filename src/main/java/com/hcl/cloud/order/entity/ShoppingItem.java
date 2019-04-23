@@ -1,16 +1,23 @@
 package com.hcl.cloud.order.entity;
 
-import org.springframework.data.annotation.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 
 /**
  * This is entity class for Shopping Item.
  * @author shikhar.a || ankit-kumar
  */
-@Document
+@Entity
+@Table(name = "shopping_items")
 public class ShoppingItem {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE , generator = "shopping_item_sequence")
+    @SequenceGenerator(name = "shopping_item_sequence", sequenceName = "SHOPPING_ITEM_SEQ")
+    private Long shoppingItemId;
 
     private String skuCode;
 
@@ -22,6 +29,11 @@ public class ShoppingItem {
 
     private BigDecimal totalPrice;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fk_order")
+    @JsonIgnore
+    private Order order;
+
     public ShoppingItem() {
     }
 
@@ -31,6 +43,16 @@ public class ShoppingItem {
         this.listPrice = listPrice;
         this.salePrice = salePrice;
         this.totalPrice = totalPrice;
+    }
+
+    public ShoppingItem(Long shoppingItemId, String skuCode, Integer quantity, BigDecimal listPrice, BigDecimal salePrice, BigDecimal totalPrice, Order order) {
+        this.shoppingItemId = shoppingItemId;
+        this.skuCode = skuCode;
+        this.quantity = quantity;
+        this.listPrice = listPrice;
+        this.salePrice = salePrice;
+        this.totalPrice = totalPrice;
+        this.order = order;
     }
 
     public String getSkuCode() {
@@ -71,5 +93,21 @@ public class ShoppingItem {
 
     public void setTotalPrice(BigDecimal totalPrice) {
         this.totalPrice = totalPrice;
+    }
+
+    public Long getShoppingItemId() {
+        return shoppingItemId;
+    }
+
+    public void setShoppingItemId(Long shoppingItemId) {
+        this.shoppingItemId = shoppingItemId;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
     }
 }

@@ -17,7 +17,7 @@ public class LocalConnectionFactory {
 
     @Bean
     public DataSource getLocalDataSource(){
-        DriverManagerDataSource dataSource = new DriverManagerDataSource("jdbc:mysql://localhost:3306/microdb","root","root");
+        DriverManagerDataSource dataSource = new DriverManagerDataSource("jdbc:mysql://localhost:3306/order","root","admin");
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
         return dataSource;
     }

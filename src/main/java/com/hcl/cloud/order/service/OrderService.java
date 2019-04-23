@@ -2,9 +2,6 @@ package com.hcl.cloud.order.service;
 
 import com.hcl.cloud.order.entity.Cart;
 import com.hcl.cloud.order.entity.Order;
-import com.hcl.cloud.order.entity.OrderEntity;
-import com.hcl.cloud.order.repository.OrderRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
@@ -20,7 +17,7 @@ public interface OrderService {
      * @param cart object to be saved
      * @return Saved order object
      */
-    public OrderEntity checkout(Cart cart);
+    public Order checkout(Cart cart);
 
     /**
      * This method declaration is for updating an order.
@@ -28,7 +25,7 @@ public interface OrderService {
      * @param order object to be saved
      * @return Saved order object
      */
-    public OrderEntity updateOrder(OrderEntity order);
+    public Order updateOrder(Order order);
 
     /**
      * This method declaration is for retrieving the details of a particular order.
@@ -36,12 +33,12 @@ public interface OrderService {
      * @param orderId
      * @return Order object
      */
-    public OrderEntity getOrder(Long orderId);
+    public Order getOrder(Long orderId);
 
     /**
      * This method declaration is for retrieving a list of all the orders.
      *
      * @return List of orders
      */
-    public List<OrderEntity> getAllOrders();
+    public List<Order> getAllOrders();
 }

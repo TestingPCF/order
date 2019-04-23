@@ -1,9 +1,9 @@
 package com.hcl.cloud.order.entity;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
-import javax.annotation.Generated;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -14,10 +14,16 @@ import java.util.List;
  * This is entity class for Order.
  * @author shikhar.a || ankit-kumar
  */
-@Document
+@Entity
+@Table(name = "TORDER")
+@Access(value=AccessType.FIELD)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Order {
 
     @Id
+    @Column(name = "order_id", unique = true, nullable = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE , generator = "order_sequence")
+    @SequenceGenerator(name = "order_sequence", sequenceName = "ORDER_SEQ")
     private Long orderId;
 
     private String orderStatus;
@@ -36,6 +42,7 @@ public class Order {
 
     private BigDecimal orderTotal;
 
+    @OneToMany(mappedBy = "order", cascade = CascadeType.PERSIST)
     private List<ShoppingItem> shoppingItems;
 
     public Order() {
@@ -43,6 +50,18 @@ public class Order {
 
     public Order(String orderStatus, Date orderDate, Date deliveryDate, String userEmail, String paymentMode, String shippingAddress, BigDecimal orderTotal, List<ShoppingItem> shoppingItems) {
 
+        this.orderStatus = orderStatus;
+        this.orderDate = orderDate;
+        this.deliveryDate = deliveryDate;
+        this.userEmail = userEmail;
+        this.paymentMode = paymentMode;
+        this.shippingAddress = shippingAddress;
+        this.orderTotal = orderTotal;
+        this.shoppingItems = shoppingItems;
+    }
+
+    public Order(Long orderId, String orderStatus, Date orderDate, Date deliveryDate, @NotNull String userEmail, @NotNull String paymentMode, String shippingAddress, BigDecimal orderTotal, List<ShoppingItem> shoppingItems) {
+        this.orderId = orderId;
         this.orderStatus = orderStatus;
         this.orderDate = orderDate;
         this.deliveryDate = deliveryDate;
@@ -133,6 +152,7 @@ public class Order {
     public static Order getSampleOrder(){
         Order order = new Order();
         ShoppingItem item = new ShoppingItem("Iphone_16GB", 1, new BigDecimal(100), new BigDecimal(100), new BigDecimal(100));
+        item.setOrder(order);
         ArrayList items = new ArrayList();
         items.add(item);
         order.setOrderDate(new Date());
@@ -140,6 +160,7 @@ public class Order {
         order.setOrderTotal(new BigDecimal("200"));
         order.setUserEmail("shikhar.a@hcl.com");
         order.setShippingAddress("Noida, UP");
+        //order.setPaymentMode("CASH");
         order.setShoppingItems(new ArrayList<ShoppingItem>(items));
 
         return order;

@@ -2,11 +2,8 @@ package com.hcl.cloud.order.service.impl;
 
 import com.hcl.cloud.order.entity.Cart;
 import com.hcl.cloud.order.entity.Order;
-import com.hcl.cloud.order.entity.OrderEntity;
-import com.hcl.cloud.order.repository.OrderRepository;
 import com.hcl.cloud.order.repository.OrderRepositorySql;
 import com.hcl.cloud.order.service.OrderService;
-import com.hcl.cloud.order.util.OrderUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +25,7 @@ public class OrderServiceImpl implements OrderService {
      * , responsible to interact with mongoDB.
      */
     @Autowired
-    private OrderRepositorySql orderRepository;
+    private OrderRepositorySql orderRepositorySql;
 
     /**
      * This method definition is for saving a new order.
@@ -37,10 +34,9 @@ public class OrderServiceImpl implements OrderService {
      * @return Saved order object
      */
     @Override
-    public OrderEntity checkout(Cart cart) {
-        OrderEntity orderEntity = new OrderEntity();
-        orderEntity.setOrderJSON(OrderUtil.converObjectToJsonString(cart));
-        OrderEntity persistedOrder = orderRepository.save(orderEntity);
+    public Order checkout(Cart cart) {
+        Order order = Order.getSampleOrder();
+        Order persistedOrder = orderRepositorySql.save(order);
         return persistedOrder;
     }
 
@@ -52,8 +48,8 @@ public class OrderServiceImpl implements OrderService {
      * @return Saved order object
      */
     @Override
-    public OrderEntity updateOrder(OrderEntity order) {
-        OrderEntity persistedOrder = orderRepository.save(order);
+    public Order updateOrder(Order order) {
+        Order persistedOrder = orderRepositorySql.save(order);
         return order;
     }
 
@@ -64,8 +60,8 @@ public class OrderServiceImpl implements OrderService {
      * @return Order object
      */
     @Override
-    public OrderEntity getOrder(Long orderId) {
-         OrderEntity persistedOrder = orderRepository.getOne(orderId);
+    public Order getOrder(Long orderId) {
+        Order persistedOrder = orderRepositorySql.getOne(orderId);
          return persistedOrder;
     }
 
@@ -75,7 +71,7 @@ public class OrderServiceImpl implements OrderService {
      * @return List of orders
      */
     @Override
-    public List<OrderEntity> getAllOrders() {
-        return orderRepository.findAll();
+    public List<Order> getAllOrders() {
+        return orderRepositorySql.findAll();
     }
 }
