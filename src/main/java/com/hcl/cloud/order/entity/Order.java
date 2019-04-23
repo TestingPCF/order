@@ -20,35 +20,79 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Order {
 
+    /**
+     * orderId.
+     */
     @Id
     @Column(name = "order_id", unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "order_sequence")
     @SequenceGenerator(name = "order_sequence", sequenceName = "ORDER_SEQ")
     private Long orderId;
 
+    /**
+     * orderStatus.
+     */
     private String orderStatus;
 
+    /**
+     * orderDate.
+     */
     private Date orderDate;
 
+    /**
+     * deliveryDate.
+     */
     private Date deliveryDate;
 
+    /**
+     * userEmail.
+     */
     @NotNull
     private String userEmail;
 
+    /**
+     * paymentMode.
+     */
     @NotNull
     private String paymentMode;
 
+    /**
+     * shippingAddress.
+     */
     private String shippingAddress;
 
+    /**
+     * orderTotal.
+     */
     private BigDecimal orderTotal;
 
+    /**
+     * shoppingItems.
+     */
     @OneToMany(mappedBy = "order", cascade = CascadeType.PERSIST)
     private List<ShoppingItem> shoppingItems;
 
+    /**
+     * Order.
+     */
     public Order() {
     }
 
-    public Order(String orderStatus, Date orderDate, Date deliveryDate, String userEmail, String paymentMode, String shippingAddress, BigDecimal orderTotal, List<ShoppingItem> shoppingItems) {
+    /**
+     * Order.
+     *
+     * @param orderStatus Order Status
+     * @param orderDate Order Date
+     * @param deliveryDate Delivery Date
+     * @param userEmail User Email
+     * @param paymentMode Payment Maode
+     * @param shippingAddress Shipping Address
+     * @param orderTotal Order Total
+     * @param shoppingItems Shopping Items
+     */
+    public Order(final String orderStatus, final Date orderDate, final Date deliveryDate
+            , final String userEmail, final String paymentMode, final String shippingAddress
+            , final BigDecimal orderTotal, final List<ShoppingItem> shoppingItems) {
 
         this.orderStatus = orderStatus;
         this.orderDate = orderDate;
@@ -60,7 +104,22 @@ public class Order {
         this.shoppingItems = shoppingItems;
     }
 
-    public Order(Long orderId, String orderStatus, Date orderDate, Date deliveryDate, @NotNull String userEmail, @NotNull String paymentMode, String shippingAddress, BigDecimal orderTotal, List<ShoppingItem> shoppingItems) {
+    /**
+     * Order.
+     *
+     * @param orderId Order Id
+     * @param orderStatus Order Status
+     * @param orderDate Order Date
+     * @param deliveryDate Deliver Date
+     * @param userEmail User Email
+     * @param paymentMode Payment Mode
+     * @param shippingAddress Shipping Address
+     * @param orderTotal Order Total
+     * @param shoppingItems Shopping Items
+     */
+    public Order(final Long orderId, final String orderStatus, final Date orderDate, final Date deliveryDate
+            , final @NotNull String userEmail, final @NotNull String paymentMode, final String shippingAddress
+            , final BigDecimal orderTotal, final List<ShoppingItem> shoppingItems) {
         this.orderId = orderId;
         this.orderStatus = orderStatus;
         this.orderDate = orderDate;
@@ -76,7 +135,7 @@ public class Order {
      * This will return a sample order object.
      * [For testing purpose only]
      *
-     * @return Order
+     * @return Order Order object
      */
     public static Order getSampleOrder() {
         Order order = new Order();
@@ -95,75 +154,165 @@ public class Order {
         return order;
     }
 
-    public Long getOrderId() {
+    /**
+     * getOrderId.
+     *
+     * @return orderId Order Id
+     */
+    public final Long getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(Long orderId) {
+    /**
+     * setOrderId.
+     *
+     * @param orderId Order Id
+     */
+    public final void setOrderId(final Long orderId) {
         this.orderId = orderId;
     }
 
-    public String getOrderStatus() {
+    /**
+     * getOrderStatus.
+     *
+     * @return orderStatus status
+     */
+    public final String getOrderStatus() {
         return orderStatus;
     }
 
-    public void setOrderStatus(String orderStatus) {
+    /**
+     * setOrderStatus.
+     *
+     * @param orderStatus status
+     */
+    public final void setOrderStatus(final String orderStatus) {
         this.orderStatus = orderStatus;
     }
 
-    public Date getOrderDate() {
+    /**
+     * getOrderDate.
+     *
+     * @return orderDate order date
+     */
+    public final Date getOrderDate() {
         return orderDate;
     }
 
-    public void setOrderDate(Date orderDate) {
+    /**
+     * setOrderDate.
+     *
+     * @param orderDate order date
+     */
+    public final void setOrderDate(final Date orderDate) {
         this.orderDate = orderDate;
     }
 
-    public Date getDeliveryDate() {
+    /**
+     * getDeliveryDate.
+     *
+     * @return deliveryDate date
+     */
+    public final Date getDeliveryDate() {
         return deliveryDate;
     }
 
-    public void setDeliveryDate(Date deliveryDate) {
+    /**
+     * setDeliveryDate.
+     *
+     * @param deliveryDate date
+     */
+    public final void setDeliveryDate(final Date deliveryDate) {
         this.deliveryDate = deliveryDate;
     }
 
-    public String getUserEmail() {
+    /**
+     * getUserEmail.
+     *
+     * @return userEmail email
+     */
+    public final String getUserEmail() {
         return userEmail;
     }
 
-    public void setUserEmail(String userEmail) {
+    /**
+     * setUserEmail.
+     *
+     * @param userEmail email
+     */
+    public final void setUserEmail(final String userEmail) {
         this.userEmail = userEmail;
     }
 
-    public String getPaymentMode() {
+    /**
+     * getPaymentMode.
+     *
+     * @return paymentMode payment mode
+     */
+    public final String getPaymentMode() {
         return paymentMode;
     }
 
-    public void setPaymentMode(String paymentMode) {
+    /**
+     * setPaymentMode.
+     *
+     * @param paymentMode payment mode
+     */
+    public final void setPaymentMode(final String paymentMode) {
         this.paymentMode = paymentMode;
     }
 
-    public String getShippingAddress() {
+    /**
+     * getShippingAddress.
+     *
+     * @return shippingAddress address
+     */
+    public final String getShippingAddress() {
         return shippingAddress;
     }
 
-    public void setShippingAddress(String shippingAddress) {
+    /**
+     * setShippingAddress.
+     *
+     * @param shippingAddress address
+     */
+    public final void setShippingAddress(final String shippingAddress) {
         this.shippingAddress = shippingAddress;
     }
 
-    public BigDecimal getOrderTotal() {
+    /**
+     * getOrderTotal.
+     *
+     * @return orderTotal total
+     */
+    public final BigDecimal getOrderTotal() {
         return orderTotal;
     }
 
-    public void setOrderTotal(BigDecimal orderTotal) {
+    /**
+     * setOrderTotal.
+     *
+     * @param orderTotal total
+     */
+    public final void setOrderTotal(final BigDecimal orderTotal) {
         this.orderTotal = orderTotal;
     }
 
-    public List<ShoppingItem> getShoppingItems() {
+    /**
+     * getShoppingItems.
+     *
+     * @return shoppingItems items
+     */
+    public final List<ShoppingItem> getShoppingItems() {
         return shoppingItems;
     }
 
-    public void setShoppingItems(List<ShoppingItem> shoppingItems) {
+    /**
+     * setShoppingItems.
+     *
+     * @param shoppingItems items
+     */
+    public final void setShoppingItems(final List<ShoppingItem> shoppingItems) {
         this.shoppingItems = shoppingItems;
     }
 }

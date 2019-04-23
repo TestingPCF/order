@@ -34,7 +34,7 @@ public class OrderServiceImpl implements OrderService {
      * @return Saved order object
      */
     @Override
-    public Order checkout(Cart cart) {
+    public final Order checkout(Cart cart) {
         Order order = Order.getSampleOrder();
         Order persistedOrder = orderRepositorySql.save(order);
         return persistedOrder;
@@ -48,7 +48,7 @@ public class OrderServiceImpl implements OrderService {
      * @return Saved order object
      */
     @Override
-    public Order updateOrder(Order order) {
+    public final Order updateOrder(Order order) {
         Order persistedOrder = orderRepositorySql.save(order);
         return order;
     }
@@ -60,7 +60,7 @@ public class OrderServiceImpl implements OrderService {
      * @return Order object
      */
     @Override
-    public Order getOrder(Long orderId) {
+    public final Order getOrder(Long orderId) {
         Order persistedOrder = orderRepositorySql.getOne(orderId);
         return persistedOrder;
     }
@@ -71,7 +71,7 @@ public class OrderServiceImpl implements OrderService {
      * @return List of orders
      */
     @Override
-    public List<Order> getAllOrders() {
+    public final List<Order> getAllOrders() {
         return orderRepositorySql.findAll();
     }
 }

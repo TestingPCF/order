@@ -41,35 +41,35 @@ public class Status {
     /**
      * @return Status code..
      */
-    public int getCode() {
+    public final int getCode() {
         return status().value();
     }
 
     /**
      * @return the status
      */
-    public HttpStatus status() {
+    public final HttpStatus status() {
         return status;
     }
 
     /**
      * @param status the status to set
      */
-    public void setStatus(final HttpStatus status) {
+    public final void setStatus(final HttpStatus status) {
         this.status = status;
     }
 
     /**
      * @return the message
      */
-    public String getMessage() {
+    public final String getMessage() {
         return message;
     }
 
     /**
      * @param message the message to set
      */
-    public void setMessage(final String message) {
+    public final void setMessage(final String message) {
         this.message = message;
     }
 

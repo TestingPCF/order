@@ -24,7 +24,7 @@ public class ResponseUtil {
      * @param data
      * @return
      */
-    public static ResponseEntity getResponseEntity(HttpStatus httpStatus, String responseString
+    public static final ResponseEntity getResponseEntity(HttpStatus httpStatus, String responseString
             , Object data) {
         ResponseEntity entity;
         Status status = new Status(httpStatus, responseString);

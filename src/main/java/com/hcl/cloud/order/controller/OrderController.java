@@ -28,7 +28,7 @@ import java.util.List;
 public class OrderController {
 
     /**
-     * Logger
+     * Logger.
      */
     private static Logger logger = LoggerFactory.getLogger(OrderController.class);
     /**
@@ -40,19 +40,18 @@ public class OrderController {
     /**
      * This is a method to handle POST requests for checkout process.
      *
-     * @param cart
+     * @param cart Cart object.
      * @return ResponseEntity
      */
     @PostMapping
-    public ResponseEntity createOrder(@Valid @RequestBody Cart cart) {
+    public final ResponseEntity createOrder(final @Valid @RequestBody Cart cart) {
         try {
             Order orderEntity = orderService.checkout(cart);
             return ResponseUtil.getResponseEntity(HttpStatus.CREATED, OrderConstant.ORDER_CREATED
                     + orderEntity.getOrderId(), null);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
-            return ResponseUtil.getResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR, OrderConstant.ORDER_FAILED
-                    , null);
+            return ResponseUtil.getResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR, OrderConstant.ORDER_FAILED,null);
         }
     }
 
@@ -64,8 +63,8 @@ public class OrderController {
      * @return Response Entity
      */
     @GetMapping("/{orderId}")
-    public ResponseEntity<Order> getOrder(@PathVariable Long orderId
-            , @RequestHeader(value = "authToken", required = true) String authToken) {
+    public final ResponseEntity<Order> getOrder(final @PathVariable Long orderId
+            , final @RequestHeader(value = "authToken", required = true) String authToken) {
         try {
             Order orderEntity = orderService.getOrder(orderId);
             return ResponseUtil.getResponseEntity(HttpStatus.OK, OrderConstant.ORDER_SUCCESS, orderEntity);
@@ -83,7 +82,7 @@ public class OrderController {
      * @return Response Entity
      */
     @GetMapping
-    public ResponseEntity getAllOrders(@RequestHeader(value = "authToken", required = true) String authToken) {
+    public final ResponseEntity getAllOrders(final @RequestHeader(value = "authToken", required = true) String authToken) {
         try {
             List<Order> orderEntityList = orderService.getAllOrders();
             return ResponseUtil.getResponseEntity(HttpStatus.OK, OrderConstant.ORDER_SUCCESS, orderEntityList);
@@ -98,11 +97,11 @@ public class OrderController {
      * This is a method to handle PUT requests for order.
      * We will allow only status and delivery date to get updated.
      *
-     * @param order
+     * @param order Order object.
      * @return ResponseEntity
      */
     @PutMapping
-    public ResponseEntity updateOrder(@RequestBody Order order) {
+    public final ResponseEntity updateOrder(final @RequestBody Order order) {
         try {
             String status = order.getOrderStatus();
             Order orderEntity = orderService.getOrder(order.getOrderId());

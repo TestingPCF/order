@@ -15,12 +15,12 @@ import java.util.List;
 public class Cart {
 
     /**
-     * cartId
+     * cartId.
      */
     private String cartId;
 
     /**
-     * subTotal
+     * subTotal.
      */
     private BigDecimal subTotal;
 
@@ -43,12 +43,14 @@ public class Cart {
 
     /**
      * Cart constructor.
-     * @param cartId
-     * @param subTotal
-     * @param userId
-     * @param cartItems
+     *
+     * @param cartId    Cart Id.
+     * @param subTotal  Sub total.
+     * @param userId    User Id.
+     * @param cartItems cart items.
      */
-    public Cart(String cartId, BigDecimal subTotal, String userId, List<ShoppingItem> cartItems) {
+    public Cart(final String cartId, final BigDecimal subTotal, final String userId
+            , final List<ShoppingItem> cartItems) {
         this.cartId = cartId;
         this.subTotal = subTotal;
         this.userId = userId;
@@ -56,46 +58,74 @@ public class Cart {
     }
 
     /**
-     * Getter Cart id
-     * @return
+     * Getter Cart id.
+     *
+     * @return cartId
      */
-    public String getCartId() {
+    public final String getCartId() {
         return cartId;
     }
 
     /**
      * Setter cart id.
-     * @param cartId
+     *
+     * @param cartId cart id.
      */
-    public void setCartId(String cartId) {
+    public final void setCartId(final String cartId) {
         this.cartId = cartId;
     }
 
     /**
      * getSubTotal.
-     * @return
+     *
+     * @return subTotal
      */
-    public BigDecimal getSubTotal() {
+    public final BigDecimal getSubTotal() {
         return subTotal;
     }
 
-    public void setSubTotal(BigDecimal subTotal) {
+    /**
+     * setSubTotal.
+     *
+     * @param subTotal sub total.
+     */
+    public final void setSubTotal(final BigDecimal subTotal) {
         this.subTotal = subTotal;
     }
 
-    public String getUserId() {
+    /**
+     * getUserId.
+     *
+     * @return userId
+     */
+    public final String getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    /**
+     * setUserId.
+     *
+     * @param userId User Id.
+     */
+    public final void setUserId(final String userId) {
         this.userId = userId;
     }
 
-    public List<ShoppingItem> getCartItems() {
+    /**
+     * getCartItems.
+     *
+     * @return cartItems
+     */
+    public final List<ShoppingItem> getCartItems() {
         return cartItems;
     }
 
-    public void setCartItems(List<ShoppingItem> cartItems) {
+    /**
+     * setCartItems.
+     *
+     * @param cartItems cart Items.
+     */
+    public final void setCartItems(final List<ShoppingItem> cartItems) {
         this.cartItems = cartItems;
     }
 }

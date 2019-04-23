@@ -42,7 +42,7 @@ public final class Response<E> {
     /**
      * @return status.
      */
-    public Status getStatus() {
+    public final Status getStatus() {
         return status;
     }
 
@@ -51,14 +51,14 @@ public final class Response<E> {
      *
      * @return data.
      */
-    public E getData() {
+    public final E getData() {
         return data;
     }
 
     /**
      * @return Collection
      */
-    public Collection<E> getDataSet() {
+    public final Collection<E> getDataSet() {
         return dataSet;
     }
 
@@ -94,8 +94,8 @@ public final class Response<E> {
         /**
          * Builder<E>.
          *
-         * @param data
-         * @return builder.
+         * @param data Data
+         * @return builder Builder.
          */
         public final Builder<E> setEntity(final E data) {
             this.data = data;
@@ -105,8 +105,8 @@ public final class Response<E> {
         /**
          * Builder<E>.
          *
-         * @param dataSet
-         * @return builder.
+         * @param dataSet dataset
+         * @return builder Builder.
          */
         public final Builder<E> setCollection(final Collection<E> dataSet) {
             this.dataSet = dataSet;
@@ -116,7 +116,7 @@ public final class Response<E> {
         /**
          * /** ResponseStatus<E>.
          *
-         * @return responseStatus.
+         * @return responseStatus status.
          */
         public final Response<E> build() {
             return new Response<E>(this);
