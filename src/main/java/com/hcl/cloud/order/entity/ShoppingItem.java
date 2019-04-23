@@ -1,7 +1,6 @@
 package com.hcl.cloud.order.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
