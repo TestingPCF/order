@@ -182,7 +182,7 @@ public class Order {
   items.add(item);
   order.setOrderDate(new Date());
   order.setOrderStatus("IN_PROGRESS");
-  order.setOrderTotal(new BigDecimal("PRICE"));
+  order.setOrderTotal(new BigDecimal(PRICE));
   order.setUserEmail("shikhar.a@hcl.com");
   order.setShippingAddress("Noida, UP");
   order.setPaymentMode("CASH");
