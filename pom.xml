@@ -112,7 +112,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 
-			<!--<plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-checkstyle-plugin</artifactId>
 				<executions>
@@ -135,9 +135,9 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-pmd-plugin</artifactId>
 				<configuration>
-					<analysisCache>true</analysisCache> &lt;!&ndash; enable incremental analysis &ndash;&gt;
-					<analysisCacheLocation>${project.build.directory}/pmd/pmd.cache</analysisCacheLocation> &lt;!&ndash; Optional: points to this location by default &ndash;&gt;
-					<failOnViolation>true</failOnViolation> &lt;!&ndash; this is actually true by default, but can be disabled &ndash;&gt;
+					<analysisCache>true</analysisCache> <!-- enable incremental analysis -->
+					<analysisCacheLocation>${project.build.directory}/pmd/pmd.cache</analysisCacheLocation> <!-- Optional: points to this location by default -->
+					<failOnViolation>true</failOnViolation> <!-- this is actually true by default, but can be disabled -->
 					<printFailingErrors>true</printFailingErrors>
 				</configuration>
 				<executions>
@@ -148,17 +148,21 @@
 					</execution>
 				</executions>
 			</plugin>
--->
 
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<version>0.8.2</version>
-				<!--<configuration>
+				<configuration>
 					<excludes>
-						<exclude>com.hcl.cloud.order.entity.*</exclude>
+					   <exclude>com.hcl.cloud.order.config.*</exclude>
+					   <exclude>com.hcl.cloud.order.entity.*</exclude>
+					   <exclude>com.hcl.cloud.order.exception.*</exclude>
+					   <exclude>com.hcl.cloud.order.constant.*</exclude>
 					</excludes>
-				</configuration>-->
+				</configuration>
+
+
 				<executions>
 					<execution>
 						<goals>
