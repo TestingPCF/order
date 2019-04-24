@@ -32,9 +32,14 @@ public class CustomizedResponseEntityExceptionHandler
 	 */
 	@Override
 	protected final ResponseEntity<Object> handleMethodArgumentNotValid(
-			final MethodArgumentNotValidException ex, final HttpHeaders headers, final HttpStatus status, final WebRequest request) {
+			final MethodArgumentNotValidException ex,
+			final HttpHeaders headers,
+			final HttpStatus status,
+			final WebRequest request) {
 		Status statusObject = new Status(HttpStatus.BAD_REQUEST,
-				ex.getBindingResult().getFieldError().getDefaultMessage());
+				ex.getBindingResult()
+						.getFieldError()
+						.getDefaultMessage());
 		Response response = new Response.Builder(statusObject).build();
 		return new ResponseEntity(response, HttpStatus.BAD_REQUEST);
 	}

@@ -53,7 +53,10 @@ public class Cart {
 	 * @param cartItemsObj
 	 *            cart items.
 	 */
-	public Cart(final String cartIdObj, final BigDecimal subTotalObj, final String userIdObj, final List<ShoppingItem> cartItemsObj) {
+	public Cart(final String cartIdObj,
+				final BigDecimal subTotalObj,
+				final String userIdObj,
+				final List<ShoppingItem> cartItemsObj) {
 		this.cartId = cartIdObj;
 		this.subTotal = subTotalObj;
 		this.userId = userIdObj;

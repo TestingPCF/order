@@ -8,7 +8,8 @@ public class BadRequestException extends RuntimeException {
 
 	/**
 	 * BadRequestException.
-	 * @param message Message
+	 * @param message
+	 *            Message
 	 */
 	public BadRequestException(final String message) {
 		super(message);
@@ -16,11 +17,13 @@ public class BadRequestException extends RuntimeException {
 
 	/**
 	 * BadRequestException.
-	 * @param message Message
-	 * @param cause Exception Object
+	 * @param message
+	 *            Message
+	 * @param cause
+	 *            Exception Object
 	 */
-	public BadRequestException(final String message
-			, final Throwable cause) {
+	public BadRequestException(final String message,
+			final Throwable cause) {
 		super(message, cause);
 	}
 

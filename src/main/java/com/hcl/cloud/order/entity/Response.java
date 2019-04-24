@@ -112,8 +112,8 @@ public final class Response<E> {
 		 *            dataset
 		 * @return builder Builder.
 		 */
-		public final Builder<E> setCollection(final
-											  Collection<E> dataSetObj) {
+		public final Builder<E> setCollection(
+				final Collection<E> dataSetObj) {
 			this.dataSet = dataSetObj;
 			return this;
 		}

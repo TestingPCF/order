@@ -94,8 +94,8 @@ public class OrderController {
      */
     @GetMapping
     public final ResponseEntity getAllOrders(
-            final @RequestHeader(value = "authToken"
-                    , required = true) String authToken) {
+            final @RequestHeader(value = "authToken",
+                    required = true) String authToken) {
         try {
             List<Order> orderEntityList = orderService.getAllOrders();
             return ResponseUtil.getResponseEntity(HttpStatus.OK,

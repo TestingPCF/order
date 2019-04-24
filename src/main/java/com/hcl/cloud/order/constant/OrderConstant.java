@@ -8,7 +8,8 @@ public interface OrderConstant {
 	/**
 	 * Constant for ORDER_CREATED.
 	 */
-	String ORDER_CREATED = "Your order has been placed, your order Id is:: ";
+	String ORDER_CREATED = "Your order has been placed"
+			+ ", your order Id is:: ";
 
 	/**
 	 * Constant for ORDER_SUCCESS.

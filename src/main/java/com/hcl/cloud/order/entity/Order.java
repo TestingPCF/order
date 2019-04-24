@@ -31,8 +31,10 @@ public class Order {
 	 */
 	@Id
 	@Column(name = "order_id", unique = true, nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "order_sequence")
-	@SequenceGenerator(name = "order_sequence", sequenceName = "ORDER_SEQ")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE,
+			generator = "order_sequence")
+	@SequenceGenerator(name = "order_sequence",
+			sequenceName = "ORDER_SEQ")
 	private Long orderId;
 
 	/**
@@ -104,11 +106,14 @@ public class Order {
 	 * @param shoppingItemsObj
 	 *            Shopping Items
 	 */
-	public Order(final String orderStatusObj, final Date orderDateObj,
-			final Date deliveryDateObj, final String userEmailObj,
-			final String paymentModeObj, final String shippingAddressObj, final BigDecimal orderTotalObj,
-			final List<ShoppingItem> shoppingItemsObj) {
-
+	public Order(final String orderStatusObj,
+				 final Date orderDateObj,
+				 final Date deliveryDateObj,
+				 final String userEmailObj,
+				 final String paymentModeObj,
+				 final String shippingAddressObj,
+				 final BigDecimal orderTotalObj,
+				 final List<ShoppingItem> shoppingItemsObj) {
 		this.orderStatus = orderStatusObj;
 		this.orderDate = orderDateObj;
 		this.deliveryDate = deliveryDateObj;
@@ -141,12 +146,15 @@ public class Order {
 	 * @param shoppingItemsObj
 	 *            Shopping Items
 	 */
-	public Order(final Long orderIdObj, final String orderStatusObj,
-			final Date orderDateObj, final Date deliveryDateObj,
-			final @NotNull String userEmailObj,
-			final @NotNull String paymentModeObj,
-			final String shippingAddressObj, final BigDecimal orderTotalObj,
-			final List<ShoppingItem> shoppingItemsObj) {
+	public Order(final Long orderIdObj,
+				 final String orderStatusObj,
+				 final Date orderDateObj,
+				 final Date deliveryDateObj,
+				 final @NotNull String userEmailObj,
+				 final @NotNull String paymentModeObj,
+				 final String shippingAddressObj,
+				 final BigDecimal orderTotalObj,
+				 final List<ShoppingItem> shoppingItemsObj) {
 		this.orderId = orderIdObj;
 		this.orderStatus = orderStatusObj;
 		this.orderDate = orderDateObj;
@@ -165,7 +173,8 @@ public class Order {
 	 */
 	public static Order getSampleOrder() {
 		Order order = new Order();
-		ShoppingItem item = new ShoppingItem("Iphone_16GB", 1,
+		ShoppingItem item = new ShoppingItem("Iphone_16GB",
+				1,
 				new BigDecimal(PRICE), new BigDecimal(PRICE),
 				new BigDecimal(PRICE));
 		item.setOrder(order);

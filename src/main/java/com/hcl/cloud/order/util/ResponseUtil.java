@@ -28,9 +28,12 @@ public class ResponseUtil {
 	 * @return ResponseEntity entity object
 	 */
 	public static final ResponseEntity getResponseEntity(
-			final HttpStatus httpStatus, final String responseString, final Object data) {
+			final HttpStatus httpStatus,
+			final String responseString,
+			final Object data) {
 		ResponseEntity entity;
-		Status status = new Status(httpStatus, responseString);
+		Status status = new Status(httpStatus,
+				responseString);
 		Response<Order> response = null;
 		if (data instanceof Collection) {
 			List<Order> orderList = (List<Order>) data;
@@ -43,6 +46,7 @@ public class ResponseUtil {
 					.build();
 		}
 
-		return new ResponseEntity<Response<Order>>(response, httpStatus);
+		return new ResponseEntity<Response<Order>>(response,
+				httpStatus);
 	}
 }
