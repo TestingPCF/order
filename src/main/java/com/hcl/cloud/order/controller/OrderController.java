@@ -4,7 +4,6 @@
 package com.hcl.cloud.order.controller;
 
 import com.hcl.cloud.order.constant.OrderConstant;
-import com.hcl.cloud.order.entity.Cart;
 import com.hcl.cloud.order.entity.Order;
 import com.hcl.cloud.order.service.OrderService;
 import com.hcl.cloud.order.util.ResponseUtil;
@@ -13,16 +12,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -32,7 +23,6 @@ import java.util.List;
  * @author shikhar.a || ankit-kumar
  */
 @RestController
-@RequestMapping("/order")
 public class OrderController {
 
     /**
@@ -46,30 +36,24 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
+
+
     /**
      * This is a method to handle POST requests for checkout process.
      *
-     * @param cart Cart object.
      * @return ResponseEntity
      */
     @PostMapping
     public final ResponseEntity createOrder(
-            final @Valid @RequestBody Cart cart) {
+            final @RequestHeader(value = OrderConstant.AUTHORIZATION_TOKEN,
+                    required = true) String authToken) {
+        Order order = new Order();
         try {
-            logger.info(OrderConstant.START
-                    + OrderConstant.ORDER_CREATING_INFO
-                    + cart.getUserId());
-            Order orderEntity = orderService.checkout(cart);
-            logger.info(OrderConstant.COMPLETED
-                    + OrderConstant.ORDER_CREATING_INFO
-                    + cart.getUserId());
-            return ResponseUtil.getResponseEntity(HttpStatus.CREATED,
-                    OrderConstant.ORDER_CREATED + orderEntity
-                            .getOrderId(), null);
+            return orderService.checkout(order, authToken);
         } catch (Exception e) {
             logger.info(OrderConstant.ERROR
                     + OrderConstant.ORDER_CREATING_INFO
-                    + cart.getUserId());
+                    + order.getUserEmail());
             logger.error(e.getMessage(), e);
             return ResponseUtil.getResponseEntity(
                     HttpStatus.INTERNAL_SERVER_ERROR,

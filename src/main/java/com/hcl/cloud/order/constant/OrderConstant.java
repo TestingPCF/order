@@ -29,6 +29,11 @@ public final class OrderConstant {
    + "went wrong with this order.";
 
  /**
+  * Constant for OUT_OF_STOCK.
+  */
+ public static final String OUT_OF_STOCK = "Stock does not have some items.";
+
+ /**
   * Constant for ORDER_FETCHING_INFO.
   */
  public static final String ORDER_FETCHING_INFO = "Order is being fetched "
@@ -73,6 +78,26 @@ public final class OrderConstant {
   * Constant for ERROR.
   */
  public static final String ERROR = "[ERROR] ";
+
+ /**
+  * Constant for INVERNTORY_READ.
+  */
+ public static final String INVERNTORY_READ = "inventoryRead";
+
+ /**
+  * Constant for INVERNTORY_UPDATE.
+  */
+ public static final String INVERNTORY_UPDATE = "inventoryUpdate";
+
+ /**
+  * Constant for INVERNTORY_CART.
+  */
+ public static final String INVERNTORY_CART = "cart";
+
+ /**
+  * AUTHORIZATION_TOKEN.
+  */
+ public static final String AUTHORIZATION_TOKEN = "Authorization";
 
  /**
   * Constructor.

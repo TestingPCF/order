@@ -6,9 +6,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.internal.util.StringUtil;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
+import org.powermock.reflect.Whitebox;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.CollectionUtils;
 
@@ -48,20 +50,29 @@ public class ResponseUtilTest {
      * Test for Collection.
      */
     @Test
-    public void getResponseEntityTestDataSuccess() {
+    public void getResponseEntityTestDataSuccess() throws Exception {
         PowerMockito.mockStatic(ResponseUtil.class);
         PowerMockito.mockStatic(HttpStatus.class);
-        ResponseUtil.getResponseEntity(HttpStatus.OK, SUCCESS, Collections.EMPTY_LIST);
+        Object obj = (Object) Collections.EMPTY_LIST;
+        Whitebox.invokeMethod(ResponseUtil.class,
+                "getResponseEntity",
+                HttpStatus.OK,
+                SUCCESS,
+                obj);
     }
 
     /**
      * Test for order.
      */
     @Test
-    public void getResponseEntityTestCollectionSuccess() {
+    public void getResponseEntityTestCollectionSuccess() throws Exception {
         PowerMockito.mockStatic(ResponseUtil.class);
         PowerMockito.mockStatic(HttpStatus.class);
-        ResponseUtil.getResponseEntity(HttpStatus.OK, SUCCESS, orderMock);
+        Object obj = (Object) orderMock;
+        Whitebox.invokeMethod(ResponseUtil.class,
+                "getResponseEntity",
+                HttpStatus.OK,
+                SUCCESS,
+                obj);
     }
 }
-

@@ -95,40 +95,6 @@ public class Order {
     public Order() {
     }
 
-//    /**
-//     * Order.
-//     *
-//     * @param orderIdObj         Order Id
-//     * @param orderStatusObj     Order Status
-//     * @param orderDateObj       Order Date
-//     * @param deliveryDateObj    Deliver Date
-//     * @param userEmailObj       User Email
-//     * @param paymentModeObj     Payment Mode
-//     * @param shippingAddressObj Shipping Address
-//     * @param orderTotalObj      Order Total
-//     * @param shoppingItemsObj   Shopping Items
-//     */
-//    @SuppressWarnings({"checkstyle:ParameterNumber"})
-//    public Order(final Long orderIdObj,
-//                 final String orderStatusObj,
-//                 final Date orderDateObj,
-//                 final Date deliveryDateObj,
-//                 final @NotNull String userEmailObj,
-//                 final @NotNull String paymentModeObj,
-//                 final String shippingAddressObj,
-//                 final BigDecimal orderTotalObj,
-//                 final List<ShoppingItem> shoppingItemsObj) {
-//        this.orderId = orderIdObj;
-//        this.orderStatus = orderStatusObj;
-//        this.orderDate = orderDateObj;
-//        this.deliveryDate = deliveryDateObj;
-//        this.userEmail = userEmailObj;
-//        this.paymentMode = paymentModeObj;
-//        this.shippingAddress = shippingAddressObj;
-//        this.orderTotal = orderTotalObj;
-//        this.shoppingItems = shoppingItemsObj;
-//    }
-
     /**
      * This will return a sample order object. [For testing purpose only]
      *

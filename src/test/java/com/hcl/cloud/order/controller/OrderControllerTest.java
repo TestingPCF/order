@@ -97,13 +97,13 @@ public class OrderControllerTest {
      * Test Success for create Order.
      */
 
-    @Test
+    /*@Test
     public final void testCreateOrderSuccess() {
         PowerMockito.mockStatic(Order.class);
         Mockito.when(Order.getSampleOrder()).thenReturn(orderMock);
         Mockito.when(orderService.checkout(cartMock)).thenReturn(orderMock);
         Assert.assertEquals(HttpStatus.CREATED, orderController.createOrder(cartMock).getStatusCode());
-    }
+    }*/
 
 
     private static final String TEST_STRING = "TEST_STRING";
@@ -112,7 +112,7 @@ public class OrderControllerTest {
      * Failure test for create order.
      * @throws Exception
      */
-    @Test
+   /* @Test
     public final void testCreateOrderFail() throws  Exception {
         Status status = new Status(HttpStatus.INTERNAL_SERVER_ERROR, TEST_STRING);
         Response response = new Response.Builder<Order>(status).build();
@@ -124,7 +124,7 @@ public class OrderControllerTest {
         Mockito.when(orderController.createOrder(cartMock)).thenThrow(RuntimeException.class);
         Assert.assertEquals(responseEntityMock.getStatusCode(),
                 orderController.createOrder(cartMock).getStatusCode());
-    }
+    }*/
 
 
     /**

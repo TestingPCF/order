@@ -1,11 +1,13 @@
 ---
 applications:
 - name: order
-  memory: 2G
+  memory: 1G
   instances: 1
-  random-route: true
+  route: order.apps.cnpsandbox.dryice01.in.hclcnlabs.com
   path: target/order-0.0.1-SNAPSHOT.jar
   buildpacks: 
   - java_buildpack_offline
   services:
   - dbService
+  - log-drain
+  - app-monitoring
