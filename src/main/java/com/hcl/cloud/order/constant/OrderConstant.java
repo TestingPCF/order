@@ -33,6 +33,6 @@ public final class OrderConstant {
   * @param obj Object
   */
  private OrderConstant(final Object obj) {
-
+  System.out.println(obj);
  }
 }

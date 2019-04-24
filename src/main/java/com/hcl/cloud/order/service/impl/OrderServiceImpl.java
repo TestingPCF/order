@@ -52,7 +52,7 @@ public class OrderServiceImpl implements OrderService {
  @Override
  public final Order updateOrder(final Order order) {
   Order persistedOrder = orderRepositorySql.save(order);
-  return order;
+  return persistedOrder;
  }
 
  /**

@@ -22,7 +22,7 @@ public final class ResponseUtil {
      * @param obj Object
      */
     private ResponseUtil(final Object obj) {
-
+        System.out.println(obj);
     }
 
     /**
@@ -37,7 +37,6 @@ public final class ResponseUtil {
             final HttpStatus httpStatus,
             final String responseString,
             final Object data) {
-        ResponseEntity entity;
         Status status = new Status(httpStatus,
                 responseString);
         Response<Order> response = null;
