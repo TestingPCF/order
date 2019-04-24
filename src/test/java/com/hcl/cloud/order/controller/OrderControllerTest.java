@@ -2,6 +2,8 @@ package com.hcl.cloud.order.controller;
 
 import com.hcl.cloud.order.entity.Cart;
 import com.hcl.cloud.order.entity.Order;
+import com.hcl.cloud.order.entity.Response;
+import com.hcl.cloud.order.entity.Status;
 import com.hcl.cloud.order.service.OrderService;
 import com.hcl.cloud.order.util.ResponseUtil;
 import org.junit.Assert;
@@ -16,6 +18,7 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -102,17 +105,27 @@ public class OrderControllerTest {
         Assert.assertEquals(HttpStatus.CREATED, orderController.createOrder(cartMock).getStatusCode());
     }
 
+
+    private static final String TEST_STRING = "TEST_STRING";
+
     /**
      * Failure test for create order.
      * @throws Exception
      */
-    @Test(expected = Exception.class)
+    @Test
     public final void testCreateOrderFail() throws  Exception {
-        PowerMockito.mockStatic(Order.class);
-        Mockito.when(Order.getSampleOrder()).thenReturn(orderMock);
-        Mockito.when(orderService.checkout(cartMock)).thenThrow(Exception.class);
-        Assert.assertEquals(HttpStatus.CREATED, orderController.createOrder(cartMock).getStatusCode());
+        Status status = new Status(HttpStatus.INTERNAL_SERVER_ERROR, TEST_STRING);
+        Response response = new Response.Builder<Order>(status).build();
+        ResponseEntity<Response<Order>> responseEntityMock =
+                new ResponseEntity<Response<Order>>(response,
+                        HttpStatus.INTERNAL_SERVER_ERROR);
+        Mockito.when(orderService.checkout(cartMock)).thenReturn(orderMock);
+        orderMock.setOrderId(ORDER_ID);
+        Mockito.when(orderController.createOrder(cartMock)).thenThrow(RuntimeException.class);
+        Assert.assertEquals(responseEntityMock.getStatusCode(),
+                orderController.createOrder(cartMock).getStatusCode());
     }
+
 
     /**
      * Test Success for create Order.
@@ -130,12 +143,18 @@ public class OrderControllerTest {
      * Failure test for create order.
      * @throws Exception
      */
-    @Test(expected = Exception.class)
+    @Test
     public final void testGetOrderFail() throws  Exception {
-        PowerMockito.mockStatic(Order.class);
-        Mockito.when(Order.getSampleOrder()).thenReturn(orderMock);
-        Mockito.when(orderService.getOrder(ORDER_ID)).thenThrow(Exception.class);
-        Assert.assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, orderController.getOrder(ORDER_ID,ACCESS_TOKEN).getStatusCode());
+        Status status = new Status(HttpStatus.INTERNAL_SERVER_ERROR, TEST_STRING);
+        Response response = new Response.Builder<Order>(status).build();
+        ResponseEntity<Response<Order>> responseEntityMock =
+                new ResponseEntity<Response<Order>>(response,
+                        HttpStatus.INTERNAL_SERVER_ERROR);
+        Mockito.when(orderService.getOrder(ORDER_ID)).thenReturn(orderMock);
+        orderMock.setOrderId(ORDER_ID);
+        Mockito.when(orderController.getOrder(ORDER_ID, ACCESS_TOKEN)).thenThrow(RuntimeException.class);
+        Assert.assertEquals(HttpStatus.INTERNAL_SERVER_ERROR,
+                orderController.getOrder(ORDER_ID, ACCESS_TOKEN).getStatusCode());
     }
 
     /**
@@ -154,11 +173,15 @@ public class OrderControllerTest {
      * Failure test for get all order.
      * @throws Exception
      */
-    @Test(expected = Exception.class)
+    @Test
     public final void testAllOrderFail() throws  Exception {
-        PowerMockito.mockStatic(Order.class);
-        Mockito.when(Order.getSampleOrder()).thenReturn(orderMock);
-        Mockito.when(orderService.getAllOrders()).thenThrow(Exception.class);
+        Status status = new Status(HttpStatus.INTERNAL_SERVER_ERROR, TEST_STRING);
+        Response response = new Response.Builder<Order>(status).build();
+        ResponseEntity<Response<Order>> responseEntityMock =
+                new ResponseEntity<Response<Order>>(response,
+                        HttpStatus.INTERNAL_SERVER_ERROR);
+        Mockito.when(orderService.getAllOrders()).thenReturn(orderListMock);
+        Mockito.when(orderController.getAllOrders(ACCESS_TOKEN)).thenThrow(RuntimeException.class);
         Assert.assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, orderController.getAllOrders(ACCESS_TOKEN).getStatusCode());
     }
 
