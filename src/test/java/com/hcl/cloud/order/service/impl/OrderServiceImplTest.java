@@ -108,7 +108,6 @@ public class OrderServiceImplTest {
     /**
      * Success Test for getAllOrders Method.
      **/
-
     @Test
     public final void testGetAllOrdersSuccess() {
         PowerMockito.when(orderRepository.findAll()).thenReturn(Collections.emptyList());

@@ -1,9 +1,12 @@
 package com.hcl.cloud.order.service.impl;
 
+import com.hcl.cloud.order.constant.OrderConstant;
 import com.hcl.cloud.order.entity.Cart;
 import com.hcl.cloud.order.entity.Order;
 import com.hcl.cloud.order.repository.OrderRepositorySql;
 import com.hcl.cloud.order.service.OrderService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +22,12 @@ import java.util.List;
  */
 @Service
 public class OrderServiceImpl implements OrderService {
+
+ /**
+  * Logger.
+  */
+ private static Logger logger = LoggerFactory
+         .getLogger(OrderServiceImpl.class);
 
  /**
   * This is an autowired object of our order repository , responsible to
@@ -37,6 +46,9 @@ public class OrderServiceImpl implements OrderService {
  @Override
  public final Order checkout(final Cart cart) {
   Order order = Order.getSampleOrder();
+  logger.info(OrderConstant.INPROGRES
+          + OrderConstant.ORDER_CREATING_INFO
+          + cart.getUserId());
   Order persistedOrder = orderRepositorySql.save(order);
   return persistedOrder;
  }
@@ -51,6 +63,9 @@ public class OrderServiceImpl implements OrderService {
   */
  @Override
  public final Order updateOrder(final Order order) {
+  logger.info(OrderConstant.INPROGRES
+          + OrderConstant.ORDER_UPDATING_INFO
+          + order.getOrderId());
   Order persistedOrder = orderRepositorySql.save(order);
   return persistedOrder;
  }
@@ -64,6 +79,9 @@ public class OrderServiceImpl implements OrderService {
   */
  @Override
  public final Order getOrder(final Long orderId) {
+  logger.info(OrderConstant.INPROGRES
+          + OrderConstant.ORDER_FETCHING_INFO
+          + orderId);
   Order persistedOrder = orderRepositorySql.getOne(orderId);
   return persistedOrder;
  }
@@ -75,6 +93,8 @@ public class OrderServiceImpl implements OrderService {
   */
  @Override
  public final List<Order> getAllOrders() {
+  logger.info(OrderConstant.ERROR
+          + OrderConstant.ORDER_GETALL_INFO);
   return orderRepositorySql.findAll();
  }
 }

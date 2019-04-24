@@ -56,11 +56,20 @@ public class OrderController {
     public final ResponseEntity createOrder(
             final @Valid @RequestBody Cart cart) {
         try {
+            logger.info(OrderConstant.START
+                    + OrderConstant.ORDER_CREATING_INFO
+                    + cart.getUserId());
             Order orderEntity = orderService.checkout(cart);
+            logger.info(OrderConstant.COMPLETED
+                    + OrderConstant.ORDER_CREATING_INFO
+                    + cart.getUserId());
             return ResponseUtil.getResponseEntity(HttpStatus.CREATED,
                     OrderConstant.ORDER_CREATED + orderEntity
                             .getOrderId(), null);
         } catch (Exception e) {
+            logger.info(OrderConstant.ERROR
+                    + OrderConstant.ORDER_CREATING_INFO
+                    + cart.getUserId());
             logger.error(e.getMessage(), e);
             return ResponseUtil.getResponseEntity(
                     HttpStatus.INTERNAL_SERVER_ERROR,
@@ -81,10 +90,19 @@ public class OrderController {
             final @RequestHeader(value = "authToken", required = true)
                     String authToken) {
         try {
+            logger.info(OrderConstant.START
+                    + OrderConstant.ORDER_FETCHING_INFO
+                    + orderId);
             Order orderEntity = orderService.getOrder(orderId);
+            logger.info(OrderConstant.COMPLETED
+                    + OrderConstant.ORDER_FETCHING_INFO
+                    + orderId);
             return ResponseUtil.getResponseEntity(HttpStatus.OK,
                     OrderConstant.ORDER_SUCCESS, orderEntity);
         } catch (Exception e) {
+            logger.info(OrderConstant.ERROR
+                    + OrderConstant.ORDER_FETCHING_INFO
+                    + orderId);
             logger.error(e.getMessage(), e);
             return ResponseUtil.getResponseEntity(
                     HttpStatus.INTERNAL_SERVER_ERROR,
@@ -104,10 +122,16 @@ public class OrderController {
             final @RequestHeader(value = "authToken",
                     required = true) String authToken) {
         try {
+            logger.info(OrderConstant.START
+                    + OrderConstant.ORDER_GETALL_INFO);
             List<Order> orderEntityList = orderService.getAllOrders();
+            logger.info(OrderConstant.COMPLETED
+                    + OrderConstant.ORDER_GETALL_INFO);
             return ResponseUtil.getResponseEntity(HttpStatus.OK,
                     OrderConstant.ORDER_SUCCESS, orderEntityList);
         } catch (Exception e) {
+            logger.info(OrderConstant.ERROR
+                    + OrderConstant.ORDER_GETALL_INFO);
             logger.error(e.getMessage(), e);
             return ResponseUtil.getResponseEntity(
                     HttpStatus.INTERNAL_SERVER_ERROR,
@@ -125,13 +149,22 @@ public class OrderController {
     @PutMapping
     public final ResponseEntity updateOrder(final @RequestBody Order order) {
         try {
+            logger.info(OrderConstant.START
+                    + OrderConstant.ORDER_UPDATING_INFO
+                    + order.getOrderId());
             String status = order.getOrderStatus();
             Order orderEntity = orderService.getOrder(order.getOrderId());
             orderEntity.setOrderStatus(status);
             orderService.updateOrder(orderEntity);
+            logger.info(OrderConstant.COMPLETED
+                    + OrderConstant.ORDER_UPDATING_INFO
+                    + order.getOrderId());
             return ResponseUtil.getResponseEntity(HttpStatus.OK,
                     OrderConstant.ORDER_UPDATED, null);
         } catch (Exception e) {
+            logger.info(OrderConstant.ERROR
+                    + OrderConstant.ORDER_UPDATING_INFO
+                    + order.getOrderId());
             logger.error(e.getMessage(), e);
             return ResponseUtil.getResponseEntity(
                     HttpStatus.INTERNAL_SERVER_ERROR,

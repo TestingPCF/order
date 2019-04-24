@@ -29,6 +29,52 @@ public final class OrderConstant {
    + "went wrong with this order.";
 
  /**
+  * Constant for ORDER_FETCHING_INFO.
+  */
+ public static final String ORDER_FETCHING_INFO = "Order is being fetched "
+         + "for"
+         + " order id ";
+
+ /**
+  * Constant for ORDER_UPDATING_INFO.
+  */
+ public static final String ORDER_UPDATING_INFO = "Order is being updated "
+         + "for"
+         + " order id ";
+
+ /**
+  * Constant for ORDER_CREATING_INFO.
+  */
+ public static final String ORDER_CREATING_INFO = "Order is being created "
+         + "for"
+         + " user id ";
+
+ /**
+  * Constant for ORDER_GETALL_INFO.
+  */
+ public static final String ORDER_GETALL_INFO = "Orders are being fetched";
+
+ /**
+  * Constant for START.
+  */
+ public static final String START = "[START] ";
+
+ /**
+  * Constant for INPROGRES.
+  */
+ public static final String INPROGRES = "[IN-PROGRESS] ";
+
+ /**
+  * Constant for COMPLETED.
+  */
+ public static final String COMPLETED = "[COMPLETED] ";
+
+ /**
+  * Constant for ERROR.
+  */
+ public static final String ERROR = "[ERROR] ";
+
+ /**
   * Constructor.
   * @param obj Object
   */

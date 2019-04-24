@@ -2,6 +2,8 @@ package com.hcl.cloud.order.exception;
 
 import com.hcl.cloud.order.entity.Response;
 import com.hcl.cloud.order.entity.Status;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,8 +11,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
-import org.springframework.web.servlet.mvc.method.annotation
-  .ResponseEntityExceptionHandler;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 /**
  * This is handler for custom exception, which can be used in case of 400.
@@ -22,6 +23,11 @@ public class CustomizedResponseEntityExceptionHandler
   extends
    ResponseEntityExceptionHandler {
 
+ /**
+  * Logger.
+  */
+ private static Logger logger = LoggerFactory
+         .getLogger(ResponseEntityExceptionHandler.class);
  /**
   * handleMethodArgumentNotValid.
   * @param ex exception
@@ -40,6 +46,9 @@ public class CustomizedResponseEntityExceptionHandler
     ex.getBindingResult()
       .getFieldError()
       .getDefaultMessage());
+  logger.error(ex.getBindingResult()
+          .getFieldError()
+          .getDefaultMessage(), ex);
   Response response = new Response.Builder(statusObject).build();
   return new ResponseEntity(response, HttpStatus.BAD_REQUEST);
  }
