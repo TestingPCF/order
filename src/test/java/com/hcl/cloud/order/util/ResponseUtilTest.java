@@ -40,7 +40,7 @@ public class ResponseUtilTest {
 
     @Before
     public void setUp() throws Exception {
-        this.responseUtil = PowerMockito.spy(new ResponseUtil());
+//        this.responseUtil = PowerMockito.spy(new ResponseUtil(orderMock));
         MockitoAnnotations.initMocks(this);
     }
 
