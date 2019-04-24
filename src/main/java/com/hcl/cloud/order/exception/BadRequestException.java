@@ -6,25 +6,25 @@ package com.hcl.cloud.order.exception;
  */
 public class BadRequestException extends RuntimeException {
 
-	/**
-	 * BadRequestException.
-	 * @param message
-	 *            Message
-	 */
-	public BadRequestException(final String message) {
-		super(message);
-	}
+ /**
+  * BadRequestException.
+  * @param message
+  *            Message
+  */
+ public BadRequestException(final String message) {
+  super(message);
+ }
 
-	/**
-	 * BadRequestException.
-	 * @param message
-	 *            Message
-	 * @param cause
-	 *            Exception Object
-	 */
-	public BadRequestException(final String message,
-			final Throwable cause) {
-		super(message, cause);
-	}
+ /**
+  * BadRequestException.
+  * @param message
+  *            Message
+  * @param cause
+  *            Exception Object
+  */
+ public BadRequestException(final String message,
+   final Throwable cause) {
+  super(message, cause);
+ }
 
 }
