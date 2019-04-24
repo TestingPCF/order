@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  *
  * @author shikhar.a || ankit-kumar
  */
+@SuppressWarnings("checkstyle:hideutilityclassconstructor")
 @SpringBootApplication
 public class OrderApplication {
 
@@ -21,4 +22,10 @@ public class OrderApplication {
   SpringApplication.run(OrderApplication.class, args);
  }
 
+ /**
+  * Print Method.
+  */
+ public final void printApplication() {
+  System.out.println("Application started::");
+ }
 }
