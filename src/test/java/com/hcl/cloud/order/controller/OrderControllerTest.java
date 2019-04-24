@@ -1,6 +1,5 @@
 package com.hcl.cloud.order.controller;
 
-import com.hcl.cloud.order.constant.OrderConstant;
 import com.hcl.cloud.order.entity.Cart;
 import com.hcl.cloud.order.entity.Order;
 import com.hcl.cloud.order.service.OrderService;
@@ -17,7 +16,6 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,39 +31,41 @@ import java.util.List;
 public class OrderControllerTest {
 
     /**
-     * ORDER_ID.
-     */
-    private static final Long ORDER_ID = 1l;
-    /**
      * OrderController mock.
      */
 
     @InjectMocks
     private OrderController orderController;
+
+
     /**
      * OrderService mock.
      */
 
     @Mock
     private OrderService orderService;
+
+
     /**
      * Order Mock.
      */
 
     @Mock
     private Order orderMock;
+
+
     /**
      * Cart Mock.
      */
 
     @Mock
     private Cart cartMock;
-    /**
-     * ResponseEntity Mock.
-     */
 
-    @Mock
-    private ResponseEntity responseEntity;
+    /**
+     * ORDER_ID.
+     */
+    private static final Long ORDER_ID = 1l;
+
     /**
      * ACCESS_TOKEN.
      */
@@ -74,7 +74,7 @@ public class OrderControllerTest {
     /**
      * orderListMock.
      */
-    private List<Order> orderListMock = new ArrayList<>();
+    private List<Order> orderListMock  = new ArrayList<>();
 
 
     /**
@@ -87,10 +87,6 @@ public class OrderControllerTest {
     public void setUp() throws Exception {
         orderController = PowerMockito.spy(new OrderController());
         MockitoAnnotations.initMocks(this);
-
-        PowerMockito.mockStatic(ResponseUtil.class);
-        PowerMockito.when(ResponseUtil.getResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR
-                , OrderConstant.ORDER_FAILED, null)).thenReturn(responseEntity);
     }
 
 
@@ -103,16 +99,15 @@ public class OrderControllerTest {
         PowerMockito.mockStatic(Order.class);
         Mockito.when(Order.getSampleOrder()).thenReturn(orderMock);
         Mockito.when(orderService.checkout(cartMock)).thenReturn(orderMock);
-        orderController.createOrder(cartMock);
+        Assert.assertEquals(HttpStatus.CREATED, orderController.createOrder(cartMock).getStatusCode());
     }
 
     /**
      * Failure test for create order.
-     *
      * @throws Exception
      */
     @Test(expected = Exception.class)
-    public final void testCreateOrderFail() throws Exception {
+    public final void testCreateOrderFail() throws  Exception {
         PowerMockito.mockStatic(Order.class);
         Mockito.when(Order.getSampleOrder()).thenReturn(orderMock);
         Mockito.when(orderService.checkout(cartMock)).thenThrow(Exception.class);
@@ -125,33 +120,22 @@ public class OrderControllerTest {
 
     @Test
     public final void testGetOrderSuccess() {
+        PowerMockito.mockStatic(Order.class);
+        Mockito.when(Order.getSampleOrder()).thenReturn(orderMock);
         Mockito.when(orderService.getOrder(ORDER_ID)).thenReturn(orderMock);
-        orderController.getOrder(ORDER_ID, ACCESS_TOKEN);
+        Assert.assertEquals(HttpStatus.OK, orderController.getOrder(ORDER_ID,ACCESS_TOKEN).getStatusCode());
     }
 
     /**
-     * Failure test for get order.
-     *
+     * Failure test for create order.
      * @throws Exception
      */
     @Test(expected = Exception.class)
-    public final void testGetOrderFail() throws Exception {
+    public final void testGetOrderFail() throws  Exception {
+        PowerMockito.mockStatic(Order.class);
+        Mockito.when(Order.getSampleOrder()).thenReturn(orderMock);
         Mockito.when(orderService.getOrder(ORDER_ID)).thenThrow(Exception.class);
-        orderController.getOrder(ORDER_ID, ACCESS_TOKEN);
-    }
-
-    /**
-     * Failure test for get order.
-     *
-     * @throws Exception
-     */
-    @Test(expected = Exception.class)
-    public final void testGetOrderOtherFail() throws Exception {
-        Mockito.when(orderService.getOrder(ORDER_ID)).thenReturn(orderMock);
-        PowerMockito.mockStatic(ResponseUtil.class);
-        PowerMockito.when(ResponseUtil.getResponseEntity(HttpStatus.OK
-                , OrderConstant.ORDER_SUCCESS, orderMock)).thenThrow(Exception.class);
-        orderController.getOrder(ORDER_ID, ACCESS_TOKEN);
+        Assert.assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, orderController.getOrder(ORDER_ID,ACCESS_TOKEN).getStatusCode());
     }
 
     /**
@@ -163,16 +147,15 @@ public class OrderControllerTest {
         PowerMockito.mockStatic(Order.class);
         Mockito.when(Order.getSampleOrder()).thenReturn(orderMock);
         Mockito.when(orderService.getAllOrders()).thenReturn(orderListMock);
-        orderController.getAllOrders(ACCESS_TOKEN);
+        Assert.assertEquals(HttpStatus.OK, orderController.getAllOrders(ACCESS_TOKEN).getStatusCode());
     }
 
     /**
      * Failure test for get all order.
-     *
      * @throws Exception
      */
     @Test(expected = Exception.class)
-    public final void testAllOrderFail() throws Exception {
+    public final void testAllOrderFail() throws  Exception {
         PowerMockito.mockStatic(Order.class);
         Mockito.when(Order.getSampleOrder()).thenReturn(orderMock);
         Mockito.when(orderService.getAllOrders()).thenThrow(Exception.class);
@@ -190,16 +173,15 @@ public class OrderControllerTest {
         Mockito.when(orderService.getOrder(ORDER_ID)).thenReturn(orderMock);
         orderMock.setOrderId(ORDER_ID);
         Mockito.when(orderService.updateOrder(orderMock)).thenReturn(orderMock);
-        orderController.updateOrder(orderMock);
+        Assert.assertEquals(HttpStatus.OK, orderController.updateOrder(orderMock).getStatusCode());
     }
 
     /**
      * Failure test for update order.
-     *
      * @throws Exception
      */
     @Test(expected = Exception.class)
-    public final void testUpdateOrderFail() throws Exception {
+    public final void testUpdateOrderFail() throws  Exception {
         PowerMockito.mockStatic(Order.class);
         Mockito.when(orderMock.getOrderId()).thenReturn(ORDER_ID);
         Mockito.when(Order.getSampleOrder()).thenReturn(orderMock);
