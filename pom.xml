@@ -168,14 +168,14 @@
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<version>0.8.2</version>
-				<configuration>
+				<!--<configuration>
 					<excludes>
-					   <!--<exclude>com.hcl.cloud.order.config.*</exclude>-->
-					   <!--<exclude>com.hcl.cloud.order.entity.*</exclude>-->
-					   <!--<exclude>com.hcl.cloud.order.exception.*</exclude>
-					   <exclude>com.hcl.cloud.order.constant.*</exclude>-->
+					   &lt;!&ndash;<exclude>com.hcl.cloud.order.config.*</exclude>&ndash;&gt;
+					   &lt;!&ndash;<exclude>com.hcl.cloud.order.entity.*</exclude>&ndash;&gt;
+					   &lt;!&ndash;<exclude>com.hcl.cloud.order.exception.*</exclude>
+					   <exclude>com.hcl.cloud.order.constant.*</exclude>&ndash;&gt;
 					</excludes>
-				</configuration>
+				</configuration>-->
 
 
 				<executions>
