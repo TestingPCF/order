@@ -75,13 +75,16 @@ public class RestClient {
                                         HttpMethod.GET,
                                         entity,
                                         Object.class);
-
+                        LOGGER.debug("CART_PCF_CLIENT :: "+response.toString());
                         return response;
                     } catch(HttpClientErrorException e){
                         throw e;
                     }
                 case "inventoryRead":
                     CartResponse cart = (CartResponse) object;
+                    if(cart.getData().getCartItems().isEmpty()) {
+                        return new ResponseEntity<Object>(HttpStatus.EXPECTATION_FAILED);
+                    }
                     for(CartItem shoppingItem :cart.getData().getCartItems()) {
                         final Map<String, String> params = new HashMap<>();
                         params.put("skuCode", shoppingItem.getItemCode());
@@ -91,6 +94,7 @@ public class RestClient {
                                 restTemplate.exchange(inventorReadUri,
                                         HttpMethod.GET,
                                         entity, Object.class, params);
+                            LOGGER.debug("INVENTORY_PCF_CLIENT :: "+inventoryResponse.toString());
                         if(!(Boolean)inventoryResponse.getBody()){
                             return new ResponseEntity<Object>(HttpStatus.EXPECTATION_FAILED);
                         }} catch (HttpClientErrorException e){
@@ -118,9 +122,8 @@ public class RestClient {
             }
 
         } catch (Exception e) {
-            LOGGER.error(e.getMessage(), e);
+            throw e;
         }
-        return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
     }
 
     /**

@@ -1,13 +1,9 @@
 package com.hcl.cloud.order.service.impl;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hcl.cloud.order.client.RestClient;
 import com.hcl.cloud.order.constant.OrderConstant;
 import com.hcl.cloud.order.dto.CartItem;
 import com.hcl.cloud.order.dto.CartResponse;
-import com.hcl.cloud.order.entity.Cart;
 import com.hcl.cloud.order.entity.Order;
 import com.hcl.cloud.order.entity.ShoppingItem;
 import com.hcl.cloud.order.repository.OrderRepositorySql;
@@ -64,31 +60,23 @@ public class OrderServiceImpl implements OrderService {
   try{
    cartResponse = RestClient.getResponseFromMS(OrderConstant.INVERNTORY_CART,
            null ,authToken);
-  } catch (HttpClientErrorException e) {
+  } catch (Exception e) {
    logger.info(OrderConstant.ERROR
            + OrderConstant.ORDER_CREATING_INFO
            + order.getUserEmail());
-   return ResponseUtil.getResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR,
-           "Error while contacting to cart service.", null);
+   if (!(e instanceof HttpClientErrorException)){
+    return ResponseUtil.getResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR,
+            "Error while contacting to cart service.", null);
+   } else {
+    return ResponseUtil.getResponseEntity(((HttpClientErrorException) e).getStatusCode(),
+            e.getMessage(), null);
+   }
   }
 
   logger.info(OrderConstant.START
           + OrderConstant.ORDER_CREATING_INFO
           + order.getUserEmail());
 
-  if(cartResponse.getStatusCode() == HttpStatus.NOT_FOUND){
-   logger.info(OrderConstant.ERROR
-           + OrderConstant.ORDER_CREATING_INFO
-           + order.getUserEmail());
-   return ResponseUtil.getResponseEntity(HttpStatus.BAD_REQUEST,
-           OrderConstant.OUT_OF_STOCK, null);
-  } else if(cartResponse.getStatusCode() == HttpStatus.INTERNAL_SERVER_ERROR){
-   logger.info(OrderConstant.ERROR
-           + OrderConstant.ORDER_CREATING_INFO
-           + order.getUserEmail());
-   return ResponseUtil.getResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR,
-           "Error while contacting to cart service.", null);
-  }
    CartResponse response = ResponseUtil.getCartResponse(cartResponse);
 
   logger.info(OrderConstant.INPROGRES
@@ -101,12 +89,17 @@ public class OrderServiceImpl implements OrderService {
    inventoryResponse = RestClient.getResponseFromMS(OrderConstant
                    .INVERNTORY_READ,
            response ,authToken);
-  } catch (HttpClientErrorException e) {
+  } catch (Exception e) {
    logger.info(OrderConstant.ERROR
            + OrderConstant.ORDER_CREATING_INFO
            + order.getUserEmail());
-   return ResponseUtil.getResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR,
-           "Error while contacting to inventory service.", null);
+   if (!(e instanceof HttpClientErrorException)){
+    return ResponseUtil.getResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR,
+            "Error while contacting to inventory service.", null);
+   } else {
+    return ResponseUtil.getResponseEntity(((HttpClientErrorException) e).getStatusCode(),
+            e.getMessage(), null);
+   }
   }
   if(inventoryResponse.getStatusCode()== HttpStatus.EXPECTATION_FAILED){
    logger.info(OrderConstant.ERROR
@@ -114,18 +107,6 @@ public class OrderServiceImpl implements OrderService {
            + order.getUserEmail());
    return ResponseUtil.getResponseEntity(HttpStatus.BAD_REQUEST,
            OrderConstant.OUT_OF_STOCK, null);
-  } else if(cartResponse.getStatusCode() == HttpStatus.NOT_FOUND){
-   logger.info(OrderConstant.ERROR
-           + OrderConstant.ORDER_CREATING_INFO
-           + order.getUserEmail());
-   return ResponseUtil.getResponseEntity(HttpStatus.BAD_REQUEST,
-           OrderConstant.OUT_OF_STOCK, null);
-  } else if(cartResponse.getStatusCode() == HttpStatus.INTERNAL_SERVER_ERROR){
-   logger.info(OrderConstant.ERROR
-           + OrderConstant.ORDER_CREATING_INFO
-           + order.getUserEmail());
-   return ResponseUtil.getResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR,
-           "Error while contacting to inventory service.", null);
   }
 
   order.setPaymentMode("CASH");
