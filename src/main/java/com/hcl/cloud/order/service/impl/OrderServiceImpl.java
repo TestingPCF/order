@@ -62,12 +62,9 @@ public class OrderServiceImpl implements OrderService {
   ResponseEntity<Object> cartResponse =
           RestClient.getResponseFromMS(OrderConstant.INVERNTORY_CART,
                   null ,authToken);
-  JsonNode jsonNode =
-          new ObjectMapper().valueToTree(cartResponse.getBody());
-  String json =
-          new ObjectMapper().writeValueAsString(jsonNode);
-  CartResponse response = new ObjectMapper()
-          .readValue(json, CartResponse.class);
+
+   CartResponse response = ResponseUtil.getCartResponse(cartResponse);
+
   logger.info(OrderConstant.START
           + OrderConstant.ORDER_CREATING_INFO
           + order.getUserEmail());

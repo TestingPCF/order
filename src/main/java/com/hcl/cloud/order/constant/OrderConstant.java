@@ -97,7 +97,7 @@ public final class OrderConstant {
  /**
   * AUTHORIZATION_TOKEN.
   */
- public static final String AUTHORIZATION_TOKEN = "Authorization";
+ public static final String AUTHORIZATION_TOKEN = "accessToken";
 
  /**
   * Constructor.

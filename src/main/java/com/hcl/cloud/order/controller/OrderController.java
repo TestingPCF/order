@@ -36,8 +36,6 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
-
-
     /**
      * This is a method to handle POST requests for checkout process.
      *

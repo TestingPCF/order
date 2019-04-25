@@ -1,11 +1,16 @@
 package com.hcl.cloud.order.util;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.hcl.cloud.order.dto.CartResponse;
 import com.hcl.cloud.order.entity.Order;
 import com.hcl.cloud.order.entity.Response;
 import com.hcl.cloud.order.entity.Status;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 
@@ -53,5 +58,17 @@ public final class ResponseUtil {
 
         return new ResponseEntity<Response<Order>>(response,
                 httpStatus);
+    }
+
+    public static CartResponse getCartResponse(
+            ResponseEntity<Object> cartResponse)
+            throws IOException {
+        JsonNode jsonNode =
+                new ObjectMapper().valueToTree(cartResponse.getBody());
+        String json =
+                new ObjectMapper().writeValueAsString(jsonNode);
+        CartResponse response = new ObjectMapper()
+                .readValue(json, CartResponse.class);
+        return response;
     }
 }
