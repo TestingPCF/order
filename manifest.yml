@@ -10,4 +10,4 @@ applications:
   services:
   - dbService
   - log-drain
-  - app-monitoring
+  - newrelic
