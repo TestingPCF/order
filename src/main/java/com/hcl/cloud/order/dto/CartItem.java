@@ -17,7 +17,7 @@ public class CartItem {
     private int quantity;
     private BigDecimal salePrice = new BigDecimal(10.00);
     
-    private BigDecimal listrice = new BigDecimal(12.00);
+    private BigDecimal listPrice = new BigDecimal(12.00);
 
     public String getItemCode() {
         return itemCode;
@@ -44,10 +44,10 @@ public class CartItem {
 	}
 
 	public BigDecimal getListrice() {
-		return listrice;
+		return listPrice;
 	}
 
 	public void setListrice(BigDecimal listrice) {
-		this.listrice = listrice;
+		this.listPrice = listPrice;
 	}
 }
