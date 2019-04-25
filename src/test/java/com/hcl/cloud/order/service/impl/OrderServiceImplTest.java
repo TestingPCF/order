@@ -24,6 +24,7 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.HttpClientErrorException;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -184,6 +185,98 @@ public class OrderServiceImplTest {
         PowerMockito.when(RestClient.getResponseFromMS(OrderConstant
                         .INVERNTORY_READ,
                 cartResponse ,ACCESS_TOKEN)).thenReturn(responseMock);
+
+        PowerMockito.when(responseMock.getStatusCode())
+                .thenReturn(HttpStatus.EXPECTATION_FAILED);
+
+        orderServiceImpl.checkout(order, ACCESS_TOKEN);
+    }
+
+    /**
+     * Failed Test for checkout Method.
+     **/
+    @Test
+    public final void testCheckoutCartClientFail() throws IOException {
+        List<CartItem> cartItems = new ArrayList<>();
+        CartItem cartItem = new CartItem();
+        cartItems.add(cartItem);
+        PowerMockito.mockStatic(RestClient.class);
+        PowerMockito.when(RestClient.getResponseFromMS(OrderConstant
+                        .INVERNTORY_CART,
+                null ,ACCESS_TOKEN))
+                .thenThrow(new HttpClientErrorException(HttpStatus.BAD_REQUEST));
+        orderServiceImpl.checkout(order, ACCESS_TOKEN);
+    }
+
+    /**
+     * Failed Test for checkout Method.
+     **/
+    @Test
+    public final void testCheckoutCartClientInternalFail() throws IOException {
+        List<CartItem> cartItems = new ArrayList<>();
+        CartItem cartItem = new CartItem();
+        cartItems.add(cartItem);
+        PowerMockito.mockStatic(RestClient.class);
+        PowerMockito.when(RestClient.getResponseFromMS(OrderConstant
+                        .INVERNTORY_CART,
+                null ,ACCESS_TOKEN))
+                .thenThrow(new RuntimeException());
+        orderServiceImpl.checkout(order, ACCESS_TOKEN);
+    }
+
+    /**
+     * Failed Test for checkout Method.
+     **/
+    @Test
+    public final void testCheckoutInventoryInternalClientFail()
+            throws IOException {
+        List<CartItem> cartItems = new ArrayList<>();
+        CartItem cartItem = new CartItem();
+        cartItems.add(cartItem);
+        PowerMockito.mockStatic(RestClient.class);
+        PowerMockito.when(RestClient.getResponseFromMS(OrderConstant
+                        .INVERNTORY_CART,
+                null ,ACCESS_TOKEN)).thenReturn(responseMock);
+
+        PowerMockito.mockStatic(ResponseUtil.class);
+        PowerMockito.when(ResponseUtil.getCartResponse(responseMock))
+                .thenReturn(cartResponse);
+        order.setUserEmail(TEST_STRING);
+
+        PowerMockito.when(RestClient.getResponseFromMS(OrderConstant
+                        .INVERNTORY_READ,
+                cartResponse ,ACCESS_TOKEN)).thenThrow(new RuntimeException());
+
+        PowerMockito.when(responseMock.getStatusCode())
+                .thenReturn(HttpStatus.EXPECTATION_FAILED);
+
+        orderServiceImpl.checkout(order, ACCESS_TOKEN);
+    }
+
+    /**
+     * Failed Test for checkout Method.
+     **/
+    @Test
+    public final void testCheckoutInventoryClientFail()
+            throws IOException {
+        List<CartItem> cartItems = new ArrayList<>();
+        CartItem cartItem = new CartItem();
+        cartItems.add(cartItem);
+        PowerMockito.mockStatic(RestClient.class);
+        PowerMockito.when(RestClient.getResponseFromMS(OrderConstant
+                        .INVERNTORY_CART,
+                null ,ACCESS_TOKEN)).thenReturn(responseMock);
+
+        PowerMockito.mockStatic(ResponseUtil.class);
+        PowerMockito.when(ResponseUtil.getCartResponse(responseMock))
+                .thenReturn(cartResponse);
+        order.setUserEmail(TEST_STRING);
+
+        PowerMockito.when(RestClient.getResponseFromMS(OrderConstant
+                        .INVERNTORY_READ,
+                cartResponse, ACCESS_TOKEN))
+                .thenThrow(new HttpClientErrorException(HttpStatus
+                        .BAD_REQUEST));
 
         PowerMockito.when(responseMock.getStatusCode())
                 .thenReturn(HttpStatus.EXPECTATION_FAILED);
