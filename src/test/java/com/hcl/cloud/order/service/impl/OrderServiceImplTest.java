@@ -9,6 +9,7 @@ import com.hcl.cloud.order.dto.CartResponse;
 import com.hcl.cloud.order.dto.ShoppingCart;
 import com.hcl.cloud.order.entity.Cart;
 import com.hcl.cloud.order.entity.Order;
+import com.hcl.cloud.order.entity.ShoppingItem;
 import com.hcl.cloud.order.repository.OrderRepositorySql;
 import com.hcl.cloud.order.util.ResponseUtil;
 import org.junit.Before;
@@ -138,6 +139,20 @@ public class OrderServiceImplTest {
         PowerMockito.when(ResponseUtil.getCartResponse(responseMock))
                 .thenReturn(cartResponse);
         order.setUserEmail(TEST_STRING);
+
+        ShoppingItem shoppingItem = new ShoppingItem(null, null
+                , null, null,
+                null);
+        shoppingItem.getListPrice();
+        shoppingItem.getOrder();
+        shoppingItem.getQuantity();
+        shoppingItem.getSalePrice();
+        shoppingItem.getShoppingItemId();
+        shoppingItem.getSkuCode();
+        shoppingItem.getTotalPrice();
+        ShoppingItem shoppingItem2 = new ShoppingItem(null, null
+                , null, null,
+                null, null, null);
 
         PowerMockito.when(RestClient.getResponseFromMS(OrderConstant
                         .INVERNTORY_READ,

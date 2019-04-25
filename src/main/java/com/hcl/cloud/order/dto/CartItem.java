@@ -43,11 +43,11 @@ public class CartItem {
 		this.salePrice = salePrice;
 	}
 
-	public BigDecimal getListrice() {
+	public BigDecimal getListPrice() {
 		return listPrice;
 	}
 
-	public void setListrice(BigDecimal listrice) {
+	public void setListPrice(BigDecimal listrice) {
 		this.listPrice = listPrice;
 	}
 }

@@ -69,7 +69,8 @@ public class OrderController {
     @GetMapping("/{orderId}")
     public final ResponseEntity<Order> getOrder(
             final @PathVariable Long orderId,
-            final @RequestHeader(value = "authToken", required = true)
+            final @RequestHeader(value = OrderConstant.AUTHORIZATION_TOKEN
+                    , required = true)
                     String authToken) {
         try {
             logger.info(OrderConstant.START
@@ -101,7 +102,7 @@ public class OrderController {
      */
     @GetMapping
     public final ResponseEntity getAllOrders(
-            final @RequestHeader(value = "authToken",
+            final @RequestHeader(value = OrderConstant.AUTHORIZATION_TOKEN,
                     required = true) String authToken) {
         try {
             logger.info(OrderConstant.START

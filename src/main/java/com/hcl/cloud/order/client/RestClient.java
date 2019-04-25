@@ -14,6 +14,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
@@ -68,24 +69,32 @@ public class RestClient {
 
             switch (serviceName) {
                 case "cart":
-                    ResponseEntity<Object> response =
-                            restTemplate.exchange(cartUri,
-                                    HttpMethod.GET,
-                                    entity,
-                                    Object.class);
-                    return response;
+                    try{
+                        ResponseEntity<Object> response =
+                                restTemplate.exchange(cartUri,
+                                        HttpMethod.GET,
+                                        entity,
+                                        Object.class);
+
+                        return response;
+                    } catch(HttpClientErrorException e){
+                        throw e;
+                    }
                 case "inventoryRead":
                     CartResponse cart = (CartResponse) object;
                     for(CartItem shoppingItem :cart.getData().getCartItems()) {
                         final Map<String, String> params = new HashMap<>();
                         params.put("skuCode", shoppingItem.getItemCode());
                         params.put("quantity", shoppingItem.getQuantity()+"");
+                        try{
                         ResponseEntity<Object> inventoryResponse =
                                 restTemplate.exchange(inventorReadUri,
                                         HttpMethod.GET,
                                         entity, Object.class, params);
                         if(!(Boolean)inventoryResponse.getBody()){
                             return new ResponseEntity<Object>(HttpStatus.EXPECTATION_FAILED);
+                        }} catch (HttpClientErrorException e){
+                            throw e;
                         }
                     }
                     return  new ResponseEntity<Object>(HttpStatus.OK);
@@ -95,7 +104,11 @@ public class RestClient {
                         Inventory inventory =
                                 new Inventory(shoppingItem.getItemCode(),
                                         shoppingItem.getQuantity());
-                        restTemplate.put(inventorUpdateUri, inventory);
+                        try {
+                            restTemplate.put(inventorUpdateUri, inventory);
+                        } catch (HttpClientErrorException e){
+                            throw e;
+                        }
                     }
                     return new ResponseEntity<Object>(HttpStatus.OK);
                     default:

@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -59,22 +60,74 @@ public class OrderServiceImpl implements OrderService {
   */
  public final ResponseEntity<Object> checkout(final Order order,
                                final String authToken) throws IOException {
-  ResponseEntity<Object> cartResponse =
-          RestClient.getResponseFromMS(OrderConstant.INVERNTORY_CART,
-                  null ,authToken);
-
-   CartResponse response = ResponseUtil.getCartResponse(cartResponse);
+  ResponseEntity<Object> cartResponse = null;
+  try{
+   cartResponse = RestClient.getResponseFromMS(OrderConstant.INVERNTORY_CART,
+           null ,authToken);
+  } catch (HttpClientErrorException e) {
+   logger.info(OrderConstant.ERROR
+           + OrderConstant.ORDER_CREATING_INFO
+           + order.getUserEmail());
+   return ResponseUtil.getResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR,
+           "Error while contacting to cart service.", null);
+  }
 
   logger.info(OrderConstant.START
           + OrderConstant.ORDER_CREATING_INFO
           + order.getUserEmail());
-  ResponseEntity<Object> inventoryResponse =
-          RestClient.getResponseFromMS(OrderConstant.INVERNTORY_READ,
-                  response ,authToken);
-  if(inventoryResponse.getStatusCode()== HttpStatus.EXPECTATION_FAILED){
+
+  if(cartResponse.getStatusCode() == HttpStatus.NOT_FOUND){
+   logger.info(OrderConstant.ERROR
+           + OrderConstant.ORDER_CREATING_INFO
+           + order.getUserEmail());
    return ResponseUtil.getResponseEntity(HttpStatus.BAD_REQUEST,
            OrderConstant.OUT_OF_STOCK, null);
+  } else if(cartResponse.getStatusCode() == HttpStatus.INTERNAL_SERVER_ERROR){
+   logger.info(OrderConstant.ERROR
+           + OrderConstant.ORDER_CREATING_INFO
+           + order.getUserEmail());
+   return ResponseUtil.getResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR,
+           "Error while contacting to cart service.", null);
   }
+   CartResponse response = ResponseUtil.getCartResponse(cartResponse);
+
+  logger.info(OrderConstant.INPROGRES
+          + OrderConstant.ORDER_CREATING_INFO
+          + order.getUserEmail());
+
+  ResponseEntity<Object> inventoryResponse = null;
+
+  try{
+   inventoryResponse = RestClient.getResponseFromMS(OrderConstant
+                   .INVERNTORY_READ,
+           response ,authToken);
+  } catch (HttpClientErrorException e) {
+   logger.info(OrderConstant.ERROR
+           + OrderConstant.ORDER_CREATING_INFO
+           + order.getUserEmail());
+   return ResponseUtil.getResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR,
+           "Error while contacting to inventory service.", null);
+  }
+  if(inventoryResponse.getStatusCode()== HttpStatus.EXPECTATION_FAILED){
+   logger.info(OrderConstant.ERROR
+           + OrderConstant.ORDER_CREATING_INFO
+           + order.getUserEmail());
+   return ResponseUtil.getResponseEntity(HttpStatus.BAD_REQUEST,
+           OrderConstant.OUT_OF_STOCK, null);
+  } else if(cartResponse.getStatusCode() == HttpStatus.NOT_FOUND){
+   logger.info(OrderConstant.ERROR
+           + OrderConstant.ORDER_CREATING_INFO
+           + order.getUserEmail());
+   return ResponseUtil.getResponseEntity(HttpStatus.BAD_REQUEST,
+           OrderConstant.OUT_OF_STOCK, null);
+  } else if(cartResponse.getStatusCode() == HttpStatus.INTERNAL_SERVER_ERROR){
+   logger.info(OrderConstant.ERROR
+           + OrderConstant.ORDER_CREATING_INFO
+           + order.getUserEmail());
+   return ResponseUtil.getResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR,
+           "Error while contacting to inventory service.", null);
+  }
+
   order.setPaymentMode("CASH");
   order.setOrderStatus("IN-PROGRESS");
   order.setUserEmail(response.getData().getUserId());
@@ -86,7 +139,7 @@ public class OrderServiceImpl implements OrderService {
   for(CartItem item : response.getData().getCartItems()){
    ShoppingItem shoppingItem = new ShoppingItem();
    shoppingItem.setOrder(order);
-   shoppingItem.setListPrice(item.getListrice());
+   shoppingItem.setListPrice(item.getListPrice());
    shoppingItem.setSalePrice(item.getSalePrice());
    shoppingItem.setQuantity(item.getQuantity());
    shoppingItem.setSkuCode(item.getItemCode());
