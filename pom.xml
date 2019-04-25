@@ -180,11 +180,11 @@
 				<configuration>
 					<outputDirectory>${project.reporting.outputDirectory}/jacoco-ut</outputDirectory>
 					<excludes>
-						<exclude>com.hcl.cloud.order.client.*</exclude>
-						<exclude>com.hcl.cloud.order.entity.*</exclude>
-						<exclude>com.hcl.cloud.order.dto.*</exclude>
-						<exclude>com.hcl.cloud.order.exception.*</exclude>
-						<exclude>com.hcl.cloud.order.constant.*</exclude>
+						<exclude>**/com/hcl/cloud/order/client/**/*</exclude>
+						<exclude>**/com/hcl/cloud/order/entity/**/*</exclude>
+						<exclude>**/com/hcl/cloud/order/dto/**/*</exclude>
+						<exclude>**/com/hcl/cloud/order/exception/**/*</exclude>
+						<exclude>**/com/hcl/cloud/order/constant/**/*</exclude>
 					</excludes>
 				</configuration>
 
