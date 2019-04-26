@@ -33,7 +33,7 @@ public class Status {
   * @param statusObj Status object
   * @param messageObj Message String
   */
- public Status(final HttpStatus statusObj, final String messageObj) {
+ public Status(HttpStatus statusObj, String messageObj) {
   super();
   this.status = statusObj;
   this.message = messageObj;

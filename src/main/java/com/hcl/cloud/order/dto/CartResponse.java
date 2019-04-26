@@ -1,26 +1,48 @@
 package com.hcl.cloud.order.dto;
 
-import com.hcl.cloud.order.entity.Status;
-
+/**
+ * CartResponse entity.
+ * @author shikhar.a
+ */
 public class CartResponse {
-
+    /**
+     * ShoppingCart.
+     */
     private ShoppingCart data;
-
+    /**
+     * Response.
+     */
     private Response status;
 
+    /**
+     * getData.
+     * @return data ShoppingCart
+     */
     public ShoppingCart getData() {
         return data;
     }
 
-    public void setData(ShoppingCart data) {
-        this.data = data;
+    /**
+     * setData.
+     * @param dataParam ShoppingCart
+     */
+    public final void setData(final ShoppingCart dataParam) {
+        this.data = dataParam;
     }
 
-    public Response getStatus() {
+    /**
+     * getStatus.
+     * @return status status
+     */
+    public final Response getStatus() {
         return status;
     }
 
-    public void setStatus(Response status) {
-        this.status = status;
+    /**
+     * setStatus.
+     * @param statusParam statusParam
+     */
+    public final void setStatus(final Response statusParam) {
+        this.status = statusParam;
     }
 }

@@ -1,7 +1,9 @@
 package com.hcl.cloud.order.dto;
 
-import org.springframework.http.HttpStatus;
-
+/**
+ * Response entity.
+ * @author shikhar.a
+ */
 public class Response {
 
     /**
@@ -14,19 +16,35 @@ public class Response {
      */
     private String message;
 
-    public int getCode() {
+    /**
+     * getCode.
+     * @return code code
+     */
+    public final int getCode() {
         return code;
     }
 
-    public void setCode(int code) {
-        this.code = code;
+    /**
+     * setCode.
+     * @param codeParam code
+     */
+    public final void setCode(final int codeParam) {
+        this.code = codeParam;
     }
 
-    public String getMessage() {
+    /**
+     * getMessage.
+     * @return message message
+     */
+    public final String getMessage() {
         return message;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    /**
+     * setMessage.
+     * @param messageParam messageParam
+     */
+    public final void setMessage(final String messageParam) {
+        this.message = messageParam;
     }
 }

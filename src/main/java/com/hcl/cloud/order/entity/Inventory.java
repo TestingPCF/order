@@ -18,43 +18,43 @@ public class Inventory {
 
     /**
      * Inventory constructor.
-     * @param skuCode Sku Code
-     * @param quantity Quantity
+     * @param skuCodeParam Sku Code
+     * @param quantityParam Quantity
      */
-    public Inventory(String skuCode, long quantity) {
-        this.skuCode = skuCode;
-        this.quantity = quantity;
+    public Inventory(String skuCodeParam, long quantityParam) {
+        this.skuCode = skuCodeParam;
+        this.quantity = quantityParam;
     }
 
     /**
      * getSkuCode.
      * @return skuCode
      */
-    public String getSkuCode() {
+    public final String getSkuCode() {
         return skuCode;
     }
 
     /**
      * setSkuCode.
-     * @param skuCode setSkuCode
+     * @param skuCodeParam setSkuCode
      */
-    public void setSkuCode(String skuCode) {
-        this.skuCode = skuCode;
+    public final void setSkuCode(final String skuCodeParam) {
+        this.skuCode = skuCodeParam;
     }
 
     /**
      * getQuantity.
      * @return getQuantity getQuantity
      */
-    public long getQuantity() {
+    public final long getQuantity() {
         return quantity;
     }
 
     /**
      * setQuantity.
-     * @param quantity setQuantity
+     * @param quantityParam setQuantity
      */
-    public void setQuantity(long quantity) {
-        this.quantity = quantity;
+    public final void setQuantity(final long quantityParam) {
+        this.quantity = quantityParam;
     }
 }

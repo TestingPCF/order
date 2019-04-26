@@ -27,6 +27,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.HttpClientErrorException;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -101,12 +102,6 @@ public class OrderServiceImplTest {
     private CartResponse cartResponse;
 
     /**
-     * ShoppingCart.
-     */
-    @Mock
-    private ShoppingCart shoppingCart;
-
-    /**
      * ORDER_ID.
      */
     private static final Long ORDER_ID_MOCK = 1l;
@@ -130,6 +125,9 @@ public class OrderServiceImplTest {
     public final void testCheckoutSuccess() throws IOException {
         List<CartItem> cartItems = new ArrayList<>();
         CartItem cartItem = new CartItem();
+        cartItem.setListPrice(new BigDecimal(10));
+        cartItem.setSalePrice(new BigDecimal(10));
+        cartItem.setQuantity(1);
         cartItems.add(cartItem);
         PowerMockito.mockStatic(RestClient.class);
         PowerMockito.when(RestClient.getResponseFromMS(OrderConstant
@@ -144,10 +142,10 @@ public class OrderServiceImplTest {
         ShoppingItem shoppingItem = new ShoppingItem(null, null
                 , null, null,
                 null);
-        shoppingItem.getListPrice();
+        shoppingItem.setListPrice(new BigDecimal(10));
         shoppingItem.getOrder();
-        shoppingItem.getQuantity();
-        shoppingItem.getSalePrice();
+        shoppingItem.setQuantity(1);
+        shoppingItem.setSalePrice(new BigDecimal(10));
         shoppingItem.getShoppingItemId();
         shoppingItem.getSkuCode();
         shoppingItem.getTotalPrice();
@@ -158,8 +156,9 @@ public class OrderServiceImplTest {
         PowerMockito.when(RestClient.getResponseFromMS(OrderConstant
                         .INVERNTORY_READ,
                 cartResponse ,ACCESS_TOKEN)).thenReturn(responseMock);
+        ShoppingCart shoppingCart = new ShoppingCart();
         PowerMockito.when(cartResponse.getData()).thenReturn(shoppingCart);
-        PowerMockito.when(shoppingCart.getCartItems()).thenReturn(cartItems);
+        shoppingCart.setCartItems(cartItems);
         PowerMockito.when(orderRepository.save(order)).thenReturn(order);
         orderServiceImpl.checkout(order, ACCESS_TOKEN);
     }

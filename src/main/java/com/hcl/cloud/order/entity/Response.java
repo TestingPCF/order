@@ -33,7 +33,7 @@ public final class Response<E> {
   * @param builder
   *            Builder
   */
- private Response(final Builder<E> builder) {
+ private Response(Builder<E> builder) {
   this.data = builder.data;
   this.status = builder.status;
   this.dataSet = builder.dataSet;

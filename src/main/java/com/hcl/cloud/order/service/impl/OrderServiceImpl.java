@@ -48,28 +48,32 @@ public class OrderServiceImpl implements OrderService {
  private OrderRepositorySql orderRepositorySql;
 
  /**
-  *
-  * @param order
-  * @param authToken
-  * @return
-  * @throws IOException
+  * checkout process.
+  * @param order Order
+  * @param authToken Auth Token
+  * @return response entity
+  * @throws IOException Exception
   */
  public final ResponseEntity<Object> checkout(final Order order,
                                final String authToken) throws IOException {
   ResponseEntity<Object> cartResponse = null;
-  try{
+  try {
    cartResponse = RestClient.getResponseFromMS(OrderConstant.INVERNTORY_CART,
-           null ,authToken);
+           null, authToken);
   } catch (Exception e) {
    logger.info(OrderConstant.ERROR
-           + OrderConstant.ORDER_CREATING_INFO
-           + order.getUserEmail());
-   if (!(e instanceof HttpClientErrorException)){
+           + OrderConstant.ORDER_CREATING_INFO);
+   if (e instanceof HttpClientErrorException) {
+    HttpStatus status = ((HttpClientErrorException) e).getStatusCode();
+    if (status == HttpStatus.NOT_FOUND) {
+     return ResponseUtil.getResponseEntity(HttpStatus.SERVICE_UNAVAILABLE,
+             "Error while contacting to cart service.",
+             null);
+    }
+    return ResponseUtil.getResponseEntity(status, e.getMessage(), null);
+   } else {
     return ResponseUtil.getResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR,
             "Error while contacting to cart service.", null);
-   } else {
-    return ResponseUtil.getResponseEntity(((HttpClientErrorException) e).getStatusCode(),
-            e.getMessage(), null);
    }
   }
 
@@ -85,23 +89,28 @@ public class OrderServiceImpl implements OrderService {
 
   ResponseEntity<Object> inventoryResponse = null;
 
-  try{
+  try {
    inventoryResponse = RestClient.getResponseFromMS(OrderConstant
                    .INVERNTORY_READ,
-           response ,authToken);
+           response, authToken);
   } catch (Exception e) {
    logger.info(OrderConstant.ERROR
            + OrderConstant.ORDER_CREATING_INFO
            + order.getUserEmail());
-   if (!(e instanceof HttpClientErrorException)){
+   if (e instanceof HttpClientErrorException) {
+    HttpStatus status = ((HttpClientErrorException) e).getStatusCode();
+    if (status == HttpStatus.NOT_FOUND) {
+     return ResponseUtil.getResponseEntity(HttpStatus.SERVICE_UNAVAILABLE,
+             "Error while contacting to inventory service.",
+             null);
+    }
+    return ResponseUtil.getResponseEntity(status, e.getMessage(), null);
+   } else {
     return ResponseUtil.getResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR,
             "Error while contacting to inventory service.", null);
-   } else {
-    return ResponseUtil.getResponseEntity(((HttpClientErrorException) e).getStatusCode(),
-            e.getMessage(), null);
    }
   }
-  if(inventoryResponse.getStatusCode()== HttpStatus.EXPECTATION_FAILED){
+  if (inventoryResponse.getStatusCode() == HttpStatus.EXPECTATION_FAILED) {
    logger.info(OrderConstant.ERROR
            + OrderConstant.ORDER_CREATING_INFO
            + order.getUserEmail());
@@ -117,7 +126,7 @@ public class OrderServiceImpl implements OrderService {
 
   List<ShoppingItem> items = new ArrayList<>();
   order.setShoppingItems(items);
-  for(CartItem item : response.getData().getCartItems()){
+  for (CartItem item : response.getData().getCartItems()) {
    ShoppingItem shoppingItem = new ShoppingItem();
    shoppingItem.setOrder(order);
    shoppingItem.setListPrice(item.getListPrice());
@@ -135,7 +144,7 @@ public class OrderServiceImpl implements OrderService {
   Order persistedOrder = orderRepositorySql.save(order);
   ResponseEntity<Object> udpateInventoryResponse =
           RestClient.getResponseFromMS(OrderConstant.INVERNTORY_UPDATE,
-                  response ,authToken);
+                  response, authToken);
   logger.info(OrderConstant.COMPLETED
           + OrderConstant.ORDER_CREATING_INFO
           + order.getUserEmail());

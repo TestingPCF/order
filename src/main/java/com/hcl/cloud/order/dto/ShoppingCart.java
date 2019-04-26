@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.hcl.cloud.order.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -10,74 +7,109 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Entity class for ShoppingCart. This class includes getter and setter methods
+ * Entity class for ShoppingCart. This class includes getter
+ * and setter methods
  * for properties of the ShoppingCart.
- * 
- * @author baghelp
- *
+ * @author shikhar.a
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ShoppingCart {
 
-	/**
-	 * cartId.
-	 */
-	//@Id
-	private String cartId;
+ /**
+  * cartId.
+  */
+ private String cartId;
 
-	/**
-	 * subTotal.
-	 */
-	private BigDecimal subTotal = new BigDecimal(0.00);
+ /**
+  * subTotal.
+  */
+ private BigDecimal subTotal = new BigDecimal(0.00);
 
-	/**
-	 * userId.
-	 */
-	private String userId;
+ /**
+  * userId.
+  */
+ private String userId;
 
-	/**
-	 * userId.
-	 */
-	private List<CartItem> cartItems = new ArrayList<>();
+ /**
+  * userId.
+  */
+ private List<CartItem> cartItems = new ArrayList<>();
 
-	public String getCartId() {
-		return cartId;
-	}
+ /**
+  * getCartId.
+  * @return cartId cartId
+  */
+ public final String getCartId() {
+  return cartId;
+ }
 
-	public void setCartId(final String cartId) {
-		this.cartId = cartId;
-	}
+ /**
+  * setCartId.
+  * @param cartIdParam Cart Id
+  */
+ public final void setCartId(final String cartIdParam) {
+  this.cartId = cartIdParam;
+ }
 
-	public BigDecimal getSubTotal() {
-		this.subTotal = calculateSubtotal();
-		return subTotal;
-	}
+ /**
+  * getSubTotal.
+  * @return subTotal Subtotal
+  */
+ public final BigDecimal getSubTotal() {
+  this.subTotal = calculateSubtotal();
+  return subTotal;
+ }
 
-	public void setSubTotal(final BigDecimal subTotal) {
-		this.subTotal = subTotal;
-	}
+ /**
+  * setSubTotal.
+  * @param subTotalParam subTotal
+  */
+ public final void setSubTotal(final BigDecimal subTotalParam) {
+  this.subTotal = subTotalParam;
+ }
 
-	public String getUserId() {
-		return userId;
-	}
+ /**
+  * getUserId.
+  * @return userId userId
+  */
+ public final String getUserId() {
+  return userId;
+ }
 
-	public void setUserId(final String userId) {
-		this.userId = userId;
-	}
+ /**
+  * setUserId.
+  * @param userIdParam userIdParam
+  */
+ public final void setUserId(final String userIdParam) {
+  this.userId = userIdParam;
+ }
 
-	public List<CartItem> getCartItems() {
-		return cartItems;
-	}
+ /**
+  * getCartItems.
+  * @return cartItems cartItems
+  */
+ public final List<CartItem> getCartItems() {
+  return cartItems;
+ }
 
-	public void setCartItems(final List<CartItem> cartItems) {
-		this.cartItems = cartItems;
-	}
-	
-	private BigDecimal calculateSubtotal() {
-		BigDecimal total = new BigDecimal(0.00);
-		for(CartItem cartItem : cartItems) {
-			total = total.add(cartItem.getSalePrice().multiply(new BigDecimal(cartItem.getQuantity())));
-		}
-		return total;
-	}
+ /**
+  * setCartItems.
+  * @param cartItemsParam cartItemsParam
+  */
+ public final void setCartItems(final List<CartItem> cartItemsParam) {
+  this.cartItems = cartItemsParam;
+ }
+
+ /**
+  * calculateSubtotal.
+  * @return total total
+  */
+ private BigDecimal calculateSubtotal() {
+  BigDecimal total = new BigDecimal(0.00);
+  for (CartItem cartItem : cartItems) {
+   total = total.add(cartItem.getSalePrice()
+     .multiply(new BigDecimal(cartItem.getQuantity())));
+  }
+  return total;
+ }
 }

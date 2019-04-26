@@ -5,7 +5,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
  * This is a class which will bootstrap our Order application.
- *
  * @author shikhar.a || ankit-kumar
  */
 @SuppressWarnings("checkstyle:hideutilityclassconstructor")
@@ -14,7 +13,6 @@ public class OrderApplication {
 
  /**
   * main.
-  *
   * @param args
   *            String input array
   */

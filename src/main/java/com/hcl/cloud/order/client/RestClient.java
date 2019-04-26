@@ -30,17 +30,17 @@ public class RestClient {
     /**
      * inventorReadUri.
      */
-    public static String inventorReadUri;
+    private static String inventorReadUri;
 
     /**
      * cartUri.
      */
-    public static String cartUri;
+    private static String cartUri;
 
     /**
      * inventorUpdateUri.
      */
-    public static String inventorUpdateUri;
+    private static String inventorUpdateUri;
 
     /**
      * logger.
@@ -69,48 +69,52 @@ public class RestClient {
 
             switch (serviceName) {
                 case "cart":
-                    try{
+                    try {
                         ResponseEntity<Object> response =
                                 restTemplate.exchange(cartUri,
                                         HttpMethod.GET,
                                         entity,
                                         Object.class);
-                        LOGGER.debug("CART_PCF_CLIENT :: "+response.toString());
                         return response;
-                    } catch(HttpClientErrorException e){
+                    } catch (HttpClientErrorException e) {
                         throw e;
                     }
                 case "inventoryRead":
                     CartResponse cart = (CartResponse) object;
-                    if(cart.getData().getCartItems().isEmpty()) {
-                        return new ResponseEntity<Object>(HttpStatus.EXPECTATION_FAILED);
+                    if (cart.getData().getCartItems().isEmpty()) {
+                        return new ResponseEntity<Object>(HttpStatus
+                                .EXPECTATION_FAILED);
                     }
-                    for(CartItem shoppingItem :cart.getData().getCartItems()) {
+                    for (CartItem shoppingItem :cart.getData()
+                            .getCartItems()) {
                         final Map<String, String> params = new HashMap<>();
                         params.put("skuCode", shoppingItem.getItemCode());
-                        params.put("quantity", shoppingItem.getQuantity()+"");
-                        try{
+                        params.put("quantity", shoppingItem.getQuantity()
+                                + "");
+                        try {
                         ResponseEntity<Object> inventoryResponse =
                                 restTemplate.exchange(inventorReadUri,
                                         HttpMethod.GET,
                                         entity, Object.class, params);
-                            LOGGER.debug("INVENTORY_PCF_CLIENT :: "+inventoryResponse.toString());
-                        if(!(Boolean)inventoryResponse.getBody()){
-                            return new ResponseEntity<Object>(HttpStatus.EXPECTATION_FAILED);
-                        }} catch (HttpClientErrorException e){
+                        if (!(Boolean) inventoryResponse.getBody()) {
+                            return new ResponseEntity<Object>(HttpStatus
+                                    .EXPECTATION_FAILED);
+                        }
+                        } catch (HttpClientErrorException e) {
                             throw e;
                         }
                     }
                     return  new ResponseEntity<Object>(HttpStatus.OK);
                 case "inventoryUpdate":
                     CartResponse cartItem = (CartResponse) object;
-                    for(CartItem shoppingItem :cartItem.getData().getCartItems()) {
+                    for (CartItem shoppingItem :cartItem.getData()
+                            .getCartItems()) {
                         Inventory inventory =
                                 new Inventory(shoppingItem.getItemCode(),
                                         shoppingItem.getQuantity());
                         try {
                             restTemplate.put(inventorUpdateUri, inventory);
-                        } catch (HttpClientErrorException e){
+                        } catch (HttpClientErrorException e) {
                             throw e;
                         }
                     }
@@ -135,28 +139,29 @@ public class RestClient {
 
     /**
      * inventorReadUri.
-     * @param inventorReadUri inventorReadUri
+     * @param inventorReadUriParam inventorReadUri
      */
     @Value("${inventorReadUri}")
-    public void setInventoryUri(String inventorReadUri) {
-        this.inventorReadUri = inventorReadUri;
+    public final void setInventoryUri(final String inventorReadUriParam) {
+        this.inventorReadUri = inventorReadUriParam;
     }
 
     /**
      * setInventorUpdateUri.
-     * @param inventorUpdateUri inventorUpdateUri
+     * @param inventorUpdateUriParam inventorUpdateUri
      */
     @Value("${inventorUpdateUri}")
-    public void setInventorUpdateUri(String inventorUpdateUri) {
-        this.inventorUpdateUri = inventorUpdateUri;
+    public final void setInventorUpdateUri(
+            final String inventorUpdateUriParam) {
+        this.inventorUpdateUri = inventorUpdateUriParam;
     }
 
     /**
      * setCartUri.
-     * @param cartUri cartUri
+     * @param cartUriParam cartUri
      */
     @Value("${cartUri}")
-    public void setCartUri(String cartUri) {
-        this.cartUri = cartUri;
+    public final void setCartUri(final String cartUriParam) {
+        this.cartUri = cartUriParam;
     }
 }

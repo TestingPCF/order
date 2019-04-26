@@ -1,6 +1,5 @@
 package com.hcl.cloud.order.service;
 
-import com.hcl.cloud.order.entity.Cart;
 import com.hcl.cloud.order.entity.Order;
 import org.springframework.http.ResponseEntity;
 
@@ -14,12 +13,14 @@ import java.util.List;
  */
 public interface OrderService {
     /**
-     *
-     * @param order
-     * @param authToken
-     * @throws IOException
+     * checkout.
+     * @param order Object
+     * @param authToken auth token
+     * @return ResponseEntity entity
+     * @throws IOException IO Exception
      */
-    ResponseEntity<Object> checkout(Order order, String authToken) throws IOException;
+    ResponseEntity<Object> checkout(Order order, String authToken)
+            throws IOException;
 
   /**
    * This method declaration is for updating an order.

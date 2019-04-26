@@ -1,6 +1,5 @@
 package com.hcl.cloud.order.util;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hcl.cloud.order.dto.CartResponse;
@@ -60,8 +59,14 @@ public final class ResponseUtil {
                 httpStatus);
     }
 
+    /**
+     * getCartResponse.
+     * @param cartResponse Cart Response Entity
+     * @return Cart response
+     * @throws IOException IO Exception
+     */
     public static CartResponse getCartResponse(
-            ResponseEntity<Object> cartResponse)
+            final ResponseEntity<Object> cartResponse)
             throws IOException {
         JsonNode jsonNode =
                 new ObjectMapper().valueToTree(cartResponse.getBody());

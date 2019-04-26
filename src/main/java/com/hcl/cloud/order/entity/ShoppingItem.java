@@ -80,11 +80,11 @@ public class ShoppingItem {
      * @param salePriceObj  Sale Price
      * @param totalPriceObj Total Price
      */
-    public ShoppingItem(final String skuCodeObj,
-                        final Integer quantityObj,
-                        final BigDecimal listPriceObj,
-                        final BigDecimal salePriceObj,
-                        final BigDecimal totalPriceObj) {
+    public ShoppingItem(String skuCodeObj,
+                        Integer quantityObj,
+                        BigDecimal listPriceObj,
+                        BigDecimal salePriceObj,
+                        BigDecimal totalPriceObj) {
         this.skuCode = skuCodeObj;
         this.quantity = quantityObj;
         this.listPrice = listPriceObj;
@@ -103,13 +103,13 @@ public class ShoppingItem {
      * @param totalPriceObj     Total Price
      * @param orderObj          Order
      */
-    public ShoppingItem(final Long shoppingItemIdObj,
-                        final String skuCodeObj,
-                        final Integer quantityObj,
-                        final BigDecimal listPriceObj,
-                        final BigDecimal salePriceObj,
-                        final BigDecimal totalPriceObj,
-                        final Order orderObj) {
+    public ShoppingItem(Long shoppingItemIdObj,
+                        String skuCodeObj,
+                        Integer quantityObj,
+                        BigDecimal listPriceObj,
+                        BigDecimal salePriceObj,
+                        BigDecimal totalPriceObj,
+                        Order orderObj) {
         this.shoppingItemId = shoppingItemIdObj;
         this.skuCode = skuCodeObj;
         this.quantity = quantityObj;
