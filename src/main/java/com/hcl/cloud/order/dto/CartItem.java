@@ -8,6 +8,7 @@ import java.math.BigDecimal;
  */
 public class CartItem {
 
+    private Long cartItemId;
     /**
      * itemCode.
      */
@@ -111,5 +112,21 @@ public class CartItem {
      */
     public void setProductName(String productName) {
         this.productName = productName;
+    }
+
+    /**
+     * get Cart Item Id.
+     * @return cartItemId id
+     */
+    public Long getCartItemId() {
+        return cartItemId;
+    }
+
+    /**
+     * set Item Id.
+     * @param cartItemId id
+     */
+    public void setCartItemId(Long cartItemId) {
+        this.cartItemId = cartItemId;
     }
 }

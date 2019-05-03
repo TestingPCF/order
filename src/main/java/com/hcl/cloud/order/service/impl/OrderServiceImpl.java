@@ -182,7 +182,7 @@ public class OrderServiceImpl implements OrderService {
   logger.info(OrderConstant.INPROGRES
           + OrderConstant.ORDER_FETCHING_INFO
           + orderId);
-  Order persistedOrder = orderRepositorySql.getOne(orderId);
+  Order persistedOrder = orderRepositorySql.findById(orderId).get();
   return persistedOrder;
  }
 

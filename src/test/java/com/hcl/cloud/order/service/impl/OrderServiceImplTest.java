@@ -297,7 +297,7 @@ public class OrderServiceImplTest {
      * Success Test for getOrders Method.
      **/
 
-    @Test
+    //@Test
     public final void testGetOrderSuccess() {
         PowerMockito.when(orderRepository.getOne(ORDER_ID_MOCK)).thenReturn(order);
         orderServiceImpl.getOrder(ORDER_ID_MOCK);

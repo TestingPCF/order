@@ -30,6 +30,23 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Order {
 
+
+
+    public Order(Long orderId, String orderStatus, Date orderDate,
+                 Date deliveryDate, @NotNull String userEmail,
+                 @NotNull String paymentMode, String shippingAddress,
+                 BigDecimal orderTotal, List<ShoppingItem> shoppingItems) {
+        this.orderId = orderId;
+        this.orderStatus = orderStatus;
+        this.orderDate = orderDate;
+        this.deliveryDate = deliveryDate;
+        this.userEmail = userEmail;
+        this.paymentMode = paymentMode;
+        this.shippingAddress = shippingAddress;
+        this.orderTotal = orderTotal;
+        this.shoppingItems = shoppingItems;
+    }
+
     /**
      * Constant PRICE.
      */

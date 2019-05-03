@@ -18,7 +18,7 @@ public class ShoppingCart {
  /**
   * cartId.
   */
- private String cartId;
+ private Long id;
 
  /**
   * subTotal.
@@ -37,18 +37,18 @@ public class ShoppingCart {
 
  /**
   * getCartId.
-  * @return cartId cartId
+  * @return id id
   */
- public final String getCartId() {
-  return cartId;
+ public final Long getId() {
+  return id;
  }
 
  /**
   * setCartId.
-  * @param cartIdParam Cart Id
+  * @param idParam Cart Id
   */
- public final void setCartId(final String cartIdParam) {
-  this.cartId = cartIdParam;
+ public final void setId(final Long idParam) {
+  this.id = idParam;
  }
 
  /**

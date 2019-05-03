@@ -101,7 +101,7 @@ public final class Response<E> {
    * @return builder Builder.
    */
   public final Builder<E> setEntity(final E dataObj) {
-   this.data = data;
+   this.data = dataObj;
    return this;
   }
 
