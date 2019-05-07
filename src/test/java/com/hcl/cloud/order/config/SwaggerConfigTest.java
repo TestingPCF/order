@@ -1,12 +1,9 @@
 package com.hcl.cloud.order.config;
 
-import com.hcl.cloud.order.controller.OrderController;
-import com.hcl.cloud.order.entity.Order;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.modules.junit4.PowerMockRunner;

@@ -10,6 +10,7 @@ import com.hcl.cloud.order.dto.ShoppingCart;
 import com.hcl.cloud.order.entity.Cart;
 import com.hcl.cloud.order.entity.Order;
 import com.hcl.cloud.order.entity.ShoppingItem;
+import com.hcl.cloud.order.exception.BadRequestException;
 import com.hcl.cloud.order.repository.OrderRepositorySql;
 import com.hcl.cloud.order.util.ResponseUtil;
 import org.junit.Before;
@@ -28,10 +29,7 @@ import org.springframework.web.client.HttpClientErrorException;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /*
  * Test class for OrderServiceImpl.
@@ -284,22 +282,80 @@ public class OrderServiceImplTest {
     }
 
     /**
+     * Failed Test for checkout Method.
+     **/
+    @Test
+    public final void testCheckoutInventoryClientNotFoundFail()
+            throws IOException {
+        List<CartItem> cartItems = new ArrayList<>();
+        CartItem cartItem = new CartItem();
+        cartItems.add(cartItem);
+        PowerMockito.mockStatic(RestClient.class);
+        PowerMockito.when(RestClient.getResponseFromMS(OrderConstant
+                        .INVERNTORY_CART,
+                null ,ACCESS_TOKEN)).thenReturn(responseMock);
+
+        PowerMockito.mockStatic(ResponseUtil.class);
+        PowerMockito.when(ResponseUtil.getCartResponse(responseMock))
+                .thenReturn(cartResponse);
+        order.setUserEmail(TEST_STRING);
+
+        PowerMockito.when(RestClient.getResponseFromMS(OrderConstant
+                        .INVERNTORY_READ,
+                cartResponse, ACCESS_TOKEN))
+                .thenThrow(new HttpClientErrorException(HttpStatus
+                        .NOT_FOUND));
+
+        PowerMockito.when(responseMock.getStatusCode())
+                .thenReturn(HttpStatus.SERVICE_UNAVAILABLE);
+
+        orderServiceImpl.checkout(order, ACCESS_TOKEN);
+    }
+
+    /**
      * Success Test for updateOrder Method.
      **/
 
     @Test
     public final void testUpdateOrderSuccess() {
+        Order order = new Order();
+        order.setOrderId(ORDER_ID_MOCK);
+        PowerMockito.when(orderRepository.findById(ORDER_ID_MOCK))
+                .thenReturn(Optional.of(order));
+        order.setOrderStatus(TEST_STRING);
+        order.setDeliveryDate(new Date());
         PowerMockito.when(orderRepository.save(order)).thenReturn(order);
         orderServiceImpl.updateOrder(order);
+    }
+
+    /**
+     * Fail Test for updateOrder Method.
+     **/
+
+    @Test(expected = BadRequestException.class)
+    public final void testUpdateOrderFail() {
+        PowerMockito.when(orderRepository.save(order)).thenReturn(order);
+        orderServiceImpl.updateOrder(order);
+    }
+
+    /**
+     * Fail Test for getOrders Method.
+     **/
+
+    @Test
+    public final void testGetOrderNullFailure() {
+        PowerMockito.when(orderRepository.getOne(ORDER_ID_MOCK)).thenReturn(order);
+        orderServiceImpl.getOrder(ORDER_ID_MOCK);
     }
 
     /**
      * Success Test for getOrders Method.
      **/
 
-    //@Test
+    @Test
     public final void testGetOrderSuccess() {
-        PowerMockito.when(orderRepository.getOne(ORDER_ID_MOCK)).thenReturn(order);
+        PowerMockito.when(orderRepository.findById(ORDER_ID_MOCK))
+                .thenReturn(Optional.of(order));
         orderServiceImpl.getOrder(ORDER_ID_MOCK);
     }
 

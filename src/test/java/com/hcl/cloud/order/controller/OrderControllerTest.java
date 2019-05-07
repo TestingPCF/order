@@ -4,6 +4,7 @@ import com.hcl.cloud.order.entity.Cart;
 import com.hcl.cloud.order.entity.Order;
 import com.hcl.cloud.order.entity.Response;
 import com.hcl.cloud.order.entity.Status;
+import com.hcl.cloud.order.exception.BadRequestException;
 import com.hcl.cloud.order.service.OrderService;
 import com.hcl.cloud.order.util.ResponseUtil;
 import org.junit.Assert;
@@ -216,5 +217,23 @@ public class OrderControllerTest {
         Assert.assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, orderController.updateOrder(orderMock).getStatusCode());
     }
 
+    /**
+     * Failure test for update order.
+     * @throws Exception
+     */
+    @Test
+    public final void testUpdateOrderBadFail() throws  Exception {
+        Mockito.when(orderService.getOrder(ORDER_ID)).thenReturn(orderMock);
+        orderMock.setOrderId(ORDER_ID);
+        Status status = new Status(HttpStatus.INTERNAL_SERVER_ERROR, TEST_STRING);
+        Response response = new Response.Builder<Order>(status).build();
+        ResponseEntity<Response<Order>> responseEntityMock =
+                new ResponseEntity<Response<Order>>(response,
+                        HttpStatus.INTERNAL_SERVER_ERROR);
+        Mockito.when(orderService.updateOrder(orderMock)).thenReturn(orderMock);
+        Mockito.when(orderController.updateOrder(orderMock)).thenThrow(BadRequestException.class);
+        Assert.assertEquals(HttpStatus.BAD_REQUEST,
+                orderController.updateOrder(orderMock).getStatusCode());
+    }
 }
 

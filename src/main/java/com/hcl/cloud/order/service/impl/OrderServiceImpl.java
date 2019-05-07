@@ -6,6 +6,7 @@ import com.hcl.cloud.order.dto.CartItem;
 import com.hcl.cloud.order.dto.CartResponse;
 import com.hcl.cloud.order.entity.Order;
 import com.hcl.cloud.order.entity.ShoppingItem;
+import com.hcl.cloud.order.exception.BadRequestException;
 import com.hcl.cloud.order.repository.OrderRepositorySql;
 import com.hcl.cloud.order.service.OrderService;
 import com.hcl.cloud.order.util.ResponseUtil;
@@ -22,6 +23,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * This is the implementation class of OrderService interface. This has the
@@ -55,7 +57,7 @@ public class OrderServiceImpl implements OrderService {
   * @throws IOException Exception
   */
  public final ResponseEntity<Object> checkout(final Order order,
-                               final String authToken) throws IOException {
+                                              final String authToken) throws IOException {
   ResponseEntity<Object> cartResponse = null;
   try {
    cartResponse = RestClient.getResponseFromMS(OrderConstant.INVERNTORY_CART,
@@ -81,7 +83,7 @@ public class OrderServiceImpl implements OrderService {
           + OrderConstant.ORDER_CREATING_INFO
           + order.getUserEmail());
 
-   CartResponse response = ResponseUtil.getCartResponse(cartResponse);
+  CartResponse response = ResponseUtil.getCartResponse(cartResponse);
 
   logger.info(OrderConstant.INPROGRES
           + OrderConstant.ORDER_CREATING_INFO
@@ -166,7 +168,26 @@ public class OrderServiceImpl implements OrderService {
   logger.info(OrderConstant.INPROGRES
           + OrderConstant.ORDER_UPDATING_INFO
           + order.getOrderId());
-  Order persistedOrder = orderRepositorySql.save(order);
+  String status = order.getOrderStatus();
+  Date deliveryDate = order.getDeliveryDate();
+  Order orderEntity = this.getOrder(order.getOrderId());
+  if(orderEntity == null) {
+   throw new BadRequestException("Order not found");
+  }
+  if(status != null && !status.isEmpty()){
+   logger.info(OrderConstant.INPROGRES
+           + OrderConstant.ORDER_UPDATING_INFO
+           + orderEntity.getOrderId() + " updating status to " + status);
+   orderEntity.setOrderStatus(status);
+  }
+  if(deliveryDate != null){
+   logger.info(OrderConstant.INPROGRES
+           + OrderConstant.ORDER_UPDATING_INFO
+           + order.getOrderId() + " updating delivery date to " + deliveryDate);
+   orderEntity.setDeliveryDate(deliveryDate);
+  }
+
+  Order persistedOrder = orderRepositorySql.save(orderEntity);
   return persistedOrder;
  }
 
@@ -182,7 +203,11 @@ public class OrderServiceImpl implements OrderService {
   logger.info(OrderConstant.INPROGRES
           + OrderConstant.ORDER_FETCHING_INFO
           + orderId);
-  Order persistedOrder = orderRepositorySql.findById(orderId).get();
+  Optional<Order> orderOption = orderRepositorySql.findById(orderId);
+  if(!orderOption.isPresent()) {
+   return null;
+  }
+  Order persistedOrder = orderOption.get();
   return persistedOrder;
  }
 
@@ -193,7 +218,7 @@ public class OrderServiceImpl implements OrderService {
   */
  @Override
  public final List<Order> getAllOrders() {
-  logger.info(OrderConstant.ERROR
+  logger.info(OrderConstant.INPROGRES
           + OrderConstant.ORDER_GETALL_INFO);
   return orderRepositorySql.findAll();
  }

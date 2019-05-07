@@ -5,6 +5,7 @@ package com.hcl.cloud.order.controller;
 
 import com.hcl.cloud.order.constant.OrderConstant;
 import com.hcl.cloud.order.entity.Order;
+import com.hcl.cloud.order.exception.BadRequestException;
 import com.hcl.cloud.order.service.OrderService;
 import com.hcl.cloud.order.util.ResponseUtil;
 import org.slf4j.Logger;
@@ -12,14 +13,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -28,6 +24,7 @@ import java.util.List;
  *
  * @author shikhar.a || ankit-kumar
  */
+@RequestMapping("/order")
 @RestController
 public class OrderController {
 
@@ -141,15 +138,21 @@ public class OrderController {
             logger.info(OrderConstant.START
                     + OrderConstant.ORDER_UPDATING_INFO
                     + order.getOrderId());
-            String status = order.getOrderStatus();
-            Order orderEntity = orderService.getOrder(order.getOrderId());
-            orderEntity.setOrderStatus(status);
-            orderService.updateOrder(orderEntity);
+            orderService.updateOrder(order);
             logger.info(OrderConstant.COMPLETED
                     + OrderConstant.ORDER_UPDATING_INFO
                     + order.getOrderId());
             return ResponseUtil.getResponseEntity(HttpStatus.OK,
                     OrderConstant.ORDER_UPDATED, null);
+        } catch (BadRequestException e) {
+            logger.info(OrderConstant.ERROR
+                    + OrderConstant.ORDER_UPDATING_INFO
+                    + order.getOrderId());
+            logger.error(e.getMessage(), e);
+            return ResponseUtil.getResponseEntity(
+                    HttpStatus.BAD_REQUEST,
+                    OrderConstant.ORDER_FAILED + " :: " +
+                            e.getMessage(), null);
         } catch (Exception e) {
             logger.info(OrderConstant.ERROR
                     + OrderConstant.ORDER_UPDATING_INFO
