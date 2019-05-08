@@ -1,7 +1,7 @@
 ---
 applications:
 - name: order
-  memory: 1G
+  memory: 768M
   instances: 1
   routes:
   - route: order-ecomm.apps.sandbox.cflab01.in.hclcnlabs.com

@@ -2,12 +2,14 @@ package com.hcl.cloud.order;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 
 /**
  * This is a class which will bootstrap our Order application.
  * @author shikhar.a || ankit-kumar
  */
 @SuppressWarnings("checkstyle:hideutilityclassconstructor")
+@RefreshScope
 @SpringBootApplication
 public class OrderApplication {
 
