@@ -18,8 +18,8 @@
 
 	<properties>
 		<java.version>1.8</java.version>
-		<spring-cloud-services.version>2.0.3.RELEASE</spring-cloud-services.version>
-		<spring-cloud.version>Greenwich.BUILD-SNAPSHOT</spring-cloud.version>
+		<spring-cloud-services.version>2.1.1.RELEASE</spring-cloud-services.version>
+		<spring-cloud.version>Greenwich.RELEASE</spring-cloud.version>
 	</properties>
 
 	<dependencies>
@@ -99,9 +99,32 @@
 			<artifactId>spring-cloud-starter-sleuth</artifactId>
 			<version>2.1.1.RELEASE</version>
 		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>io.pivotal.spring.cloud</groupId>
+			<artifactId>spring-cloud-services-starter-config-client</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>3.2.0.RELEASE</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-zipkin</artifactId>
+			<version>2.1.1.RELEASE</version>
+		</dependency>
+
 	</dependencies>
 
-	<!--<dependencyManagement>
+	<dependencyManagement>
 		<dependencies>
 			<dependency>
 				<groupId>org.springframework.cloud</groupId>
@@ -118,7 +141,7 @@
 				<scope>import</scope>
 			</dependency>
 		</dependencies>
-	</dependencyManagement>-->
+	</dependencyManagement>
 
 	<build>
 		<plugins>
