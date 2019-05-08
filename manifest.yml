@@ -9,6 +9,5 @@ applications:
   buildpacks: 
   - java_buildpack_offline
   services:
-  - dbService
-  - log-drain
-  - newrelic
+  - orderDB
+  - cloud-config-server
