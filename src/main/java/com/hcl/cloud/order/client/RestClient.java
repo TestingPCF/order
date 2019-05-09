@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -35,7 +36,9 @@ public class RestClient {
     /**
      * cartUri.
      */
-    private static String cartUri;
+    private static String cartUri = "//cart";
+//            UriComponentsBuilder
+//            .fromUriString("//cart").build().toUriString();
 
     /**
      * inventorUpdateUri.

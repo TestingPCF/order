@@ -11,3 +11,4 @@ applications:
   services:
   - orderDB
   - cloud-config-server
+  - cloud-service-registry

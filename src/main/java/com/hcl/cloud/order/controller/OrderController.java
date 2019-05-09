@@ -11,6 +11,7 @@ import com.hcl.cloud.order.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +32,13 @@ public class OrderController {
      */
     private static Logger logger = LoggerFactory
             .getLogger(OrderController.class);
+
+    /**
+     * Constant for successRetrieve.
+     */
+    @Value("${order.request.success.message}")
+    private String successRetrieve;
+
     /**
      * This is an autowired object of our order service.
      */
@@ -112,7 +120,7 @@ public class OrderController {
             logger.info(OrderConstant.COMPLETED
                     + OrderConstant.ORDER_GETALL_INFO);
             return ResponseUtil.getResponseEntity(HttpStatus.OK,
-                    OrderConstant.ORDER_SUCCESS, orderEntityList);
+                    successRetrieve, orderEntityList);
         } catch (Exception e) {
             logger.info(OrderConstant.ERROR
                     + OrderConstant.ORDER_GETALL_INFO);
