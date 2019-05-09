@@ -12,3 +12,5 @@ applications:
   - orderDB
   - cloud-config-server
   - cloud-service-registry
+  - log-drain
+  - appdynamics
