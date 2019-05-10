@@ -37,8 +37,6 @@ public class RestClient {
      * cartUri.
      */
     private static String cartUri = "//cart";
-//            UriComponentsBuilder
-//            .fromUriString("//cart").build().toUriString();
 
     /**
      * inventorUpdateUri.
