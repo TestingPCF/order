@@ -1,16 +1,17 @@
 ---
 applications:
-- name: order
-  memory: 768M
-  instances: 1
-  routes:
-  - route: order-ecomm.apps.sandbox.cflab01.in.hclcnlabs.com
-  path: target/order-0.0.1-SNAPSHOT.jar
-  buildpacks: 
-  - java_buildpack_offline
-  services:
-  - orderDB
-  - cloud-config-server
-  - cloud-service-registry
-  - appdynamics
-  - log-drain
+  - name: orderecomm
+    memory: 768M
+    instances: 1
+    routes:
+      - route: orderecomm.apps.sandbox.cflab01.in.hclcnlabs.com
+    path: target/order-1.0-SNAPSHOT.jar
+    buildpacks:
+      - java_buildpack_offline
+    services:
+      - orderDB
+      - cloud-config-server
+      - appdynamics
+      - log-drain
+    env:
+      SPRING_PROFILES_ACTIVE: prod

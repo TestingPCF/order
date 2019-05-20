@@ -1,74 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
 		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-            http://maven.apache.org/xsd/maven-4.0.0.xsd">
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.1.1.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
+
 	<groupId>com.hcl.cloud</groupId>
 	<artifactId>order</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0-SNAPSHOT</version>
 	<name>order</name>
-	<description>Checkout project for an ecommerce application to be deployed on cloudfoundry</description>
+	<description>Checkout project for an ecommerce application to be
+		deployed on cloudfoundry. Building this project again to
+		check config server integration.</description>
 
 	<properties>
 		<java.version>1.8</java.version>
-		<spring-cloud.version>Greenwich.SR1</spring-cloud.version>
+		<!--<spring-cloud-services.version>2.0.3.RELEASE</spring-cloud-services.version>-->
 		<spring-cloud-services.version>2.1.1.RELEASE</spring-cloud-services.version>
+		<spring-cloud.version>Greenwich.RELEASE</spring-cloud.version>
 	</properties>
 
 	<dependencies>
-		<!--<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-mongodb</artifactId>
-		</dependency>-->
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-cloudfoundry-connector 
-		<dependency>
-   			 <groupId>org.springframework.cloud</groupId>
-    			<artifactId>spring-cloud-cloudfoundry-connector</artifactId>
-		</dependency>-->
-
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<scope>runtime</scope>
-		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-		<!--<dependency>
-			<groupId>io.pivotal.spring.cloud</groupId>
-			<artifactId>spring-cloud-services-starter-circuit-breaker</artifactId>
-		</dependency>-->
-		<!--<dependency>
-			<groupId>io.pivotal.spring.cloud</groupId>
-			<artifactId>spring-cloud-services-starter-service-registry</artifactId>
-		</dependency>-->
-		<!--<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-		</dependency>-->
-		<!--<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-openfeign</artifactId>
-		</dependency>-->
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<scope>runtime</scope>
 		</dependency>
 
 		<dependency>
@@ -83,17 +61,18 @@
 			<version>2.0.0-beta.5</version>
 			<scope>test</scope>
 		</dependency>
-
 		<dependency>
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-swagger2</artifactId>
 			<version>2.9.2</version>
 		</dependency>
+
 		<dependency>
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-swagger-ui</artifactId>
 			<version>2.9.2</version>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-sleuth</artifactId>
@@ -122,14 +101,19 @@
 			<version>2.1.1.RELEASE</version>
 		</dependency>
 
-		<!--<dependency>
-			<groupId>io.pivotal.spring.cloud</groupId>
-			<artifactId>spring-cloud-services-starter-service-registry</artifactId>
-		</dependency>
+		<!--<dependency>-->
+		<!--<groupId>io.pivotal.spring.cloud</groupId>-->
+		<!--<artifactId>spring-cloud-services-starter-service-registry</artifactId>-->
+		<!--</dependency>-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency>-->
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-amqp</artifactId>
+		</dependency>
 
 	</dependencies>
 
@@ -159,55 +143,10 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 
-			<!--<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-checkstyle-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>validate</id>
-						<phase>validate</phase>
-						<configuration>
-							<encoding>UTF-8</encoding>
-							<consoleOutput>true</consoleOutput>
-							<failsOnError>true</failsOnError>
-							<linkXRef>false</linkXRef>
-						</configuration>
-						<goals>
-							<goal>check</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-pmd-plugin</artifactId>
-				<configuration>
-					<analysisCache>true</analysisCache> &lt;!&ndash; enable incremental analysis &ndash;&gt;
-					<analysisCacheLocation>${project.build.directory}/pmd/pmd.cache</analysisCacheLocation> &lt;!&ndash; Optional: points to this location by default &ndash;&gt;
-					<failOnViolation>true</failOnViolation> &lt;!&ndash; this is actually true by default, but can be disabled &ndash;&gt;
-					<printFailingErrors>true</printFailingErrors>
-				</configuration>
-				<executions>
-					<execution>
-						<goals>
-							<goal>check</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>-->
-
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<version>0.8.2</version>
-				<!--<configuration>
-					<excludes>
-					   &lt;!&ndash;<exclude>com.hcl.cloud.order.config.*</exclude>&ndash;&gt;
-					   &lt;!&ndash;<exclude>com.hcl.cloud.order.entity.*</exclude>&ndash;&gt;
-					   &lt;!&ndash;<exclude>com.hcl.cloud.order.exception.*</exclude>
-					   <exclude>com.hcl.cloud.order.constant.*</exclude>&ndash;&gt;
-					</excludes>
-				</configuration>-->
 
 				<configuration>
 					<outputDirectory>${project.reporting.outputDirectory}/jacoco-ut</outputDirectory>
@@ -219,7 +158,6 @@
 						<exclude>**/com/hcl/cloud/order/constant/**/*</exclude>
 					</excludes>
 				</configuration>
-
 
 				<executions>
 					<execution>
@@ -240,36 +178,4 @@
 
 		</plugins>
 	</build>
-
-	<!--<repositories>
-		<repository>
-			<id>spring-snapshots</id>
-			<name>Spring Snapshots</name>
-			<url>https://repo.spring.io/snapshot</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-		<repository>
-			<id>spring-milestones</id>
-			<name>Spring Milestones</name>
-			<url>https://repo.spring.io/milestone</url>
-		</repository>
-	</repositories>
-	<pluginRepositories>
-		<pluginRepository>
-			<id>spring-snapshots</id>
-			<name>Spring Snapshots</name>
-			<url>https://repo.spring.io/snapshot</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</pluginRepository>
-		<pluginRepository>
-			<id>spring-milestones</id>
-			<name>Spring Milestones</name>
-			<url>https://repo.spring.io/milestone</url>
-		</pluginRepository>
-	</pluginRepositories>-->
-
 </project>
