@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 /**
  * This is a configuration class which will read properties from config
  * server depending upon the activated profile.
- * @author shikhar.a 
+ * @author shikhar.a
  */
 @Configuration
 @RefreshScope
