@@ -1,5 +1,6 @@
 package com.hcl.cloud.order.controller;
 
+import com.hcl.cloud.order.config.ConstantConfig;
 import com.hcl.cloud.order.entity.Cart;
 import com.hcl.cloud.order.entity.Order;
 import com.hcl.cloud.order.entity.Response;
@@ -45,6 +46,12 @@ public class OrderControllerTest {
      */
     @Mock
     private OrderService orderService;
+
+    /**
+     * ConstantConfig mock.
+     */
+    @Mock
+    private ConstantConfig constantConfig;
 
 
     /**

@@ -3,6 +3,7 @@
  */
 package com.hcl.cloud.order.controller;
 
+import com.hcl.cloud.order.config.ConstantConfig;
 import com.hcl.cloud.order.constant.OrderConstant;
 import com.hcl.cloud.order.entity.Order;
 import com.hcl.cloud.order.exception.BadRequestException;
@@ -41,10 +42,10 @@ public class OrderController {
     private OrderService orderService;
 
     /**
-     * Constant for successRetrieve.
+     * This is an autowired object of our order service.
      */
-    @Value("${order.request.success.message}")
-    private String successRetrieve;
+    @Autowired
+    private ConstantConfig constantConfig;
 
     /**
      * This is a method to handle POST requests for checkout process.
@@ -121,7 +122,7 @@ public class OrderController {
             logger.info(OrderConstant.COMPLETED
                     + OrderConstant.ORDER_GETALL_INFO);
             return ResponseUtil.getResponseEntity(HttpStatus.OK,
-                    successRetrieve, orderEntityList);
+                    constantConfig.getSuccessRetrieve(), orderEntityList);
         } catch (Exception e) {
             logger.info(OrderConstant.ERROR
                     + OrderConstant.ORDER_GETALL_INFO);
