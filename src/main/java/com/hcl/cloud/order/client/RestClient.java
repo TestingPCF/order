@@ -106,7 +106,7 @@ public class RestClient {
                          * restTemplate.exchange(inventorReadUri, HttpMethod.GET, entity, Object.class,
                          * params);
                          */
-                        LOGGER.info("@@@@@@@--- Calling Inventory Read using FeignClient using class ----@@@@@");
+                        LOGGER.info(" Calling Inventory Read using FeignClient using class : ");
                         ResponseEntity<Object> inventoryResponse = inventoryServiceClient
                                 .readInventory(shoppingItem.getItemCode(), shoppingItem.getQuantity());
 
@@ -124,7 +124,7 @@ public class RestClient {
                     Inventory inventory = new Inventory(shoppingItem.getItemCode(), shoppingItem.getQuantity());
                     try {
                         // restTemplate.put(inventorUpdateUri, inventory);
-                        LOGGER.info("@@@@@@@--- Calling Inventory Update using FeignClient using class ----@@@@@");
+                        LOGGER.info(" Calling Inventory Update using FeignClient using class : ");
                         inventoryServiceClient.updateInventory(inventory);
                     } catch (HttpClientErrorException e) {
                         throw e;
