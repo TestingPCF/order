@@ -69,13 +69,13 @@ public class OrderServiceImpl implements OrderService {
     HttpStatus status = ((HttpClientErrorException) e).getStatusCode();
     if (status == HttpStatus.NOT_FOUND) {
      return ResponseUtil.getResponseEntity(HttpStatus.SERVICE_UNAVAILABLE,
-             "Error while contacting to cart service.",
+             OrderConstant.CART_CONNECTION_ERROR,
              null);
     }
     return ResponseUtil.getResponseEntity(status, e.getMessage(), null);
    } else {
     return ResponseUtil.getResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR,
-            "Error while contacting to cart service.", null);
+            OrderConstant.CART_CONNECTION_ERROR, null);
    }
   }
 
@@ -103,13 +103,13 @@ public class OrderServiceImpl implements OrderService {
     HttpStatus status = ((HttpClientErrorException) e).getStatusCode();
     if (status == HttpStatus.NOT_FOUND) {
      return ResponseUtil.getResponseEntity(HttpStatus.SERVICE_UNAVAILABLE,
-             "Error while contacting to inventory service.",
+             OrderConstant.INVENTORY_CONNECTION_ERROR,
              null);
     }
     return ResponseUtil.getResponseEntity(status, e.getMessage(), null);
    } else {
     return ResponseUtil.getResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR,
-            "Error while contacting to inventory service.", null);
+            OrderConstant.INVENTORY_CONNECTION_ERROR, null);
    }
   }
   if (inventoryResponse.getStatusCode() == HttpStatus.EXPECTATION_FAILED) {
@@ -120,8 +120,8 @@ public class OrderServiceImpl implements OrderService {
            OrderConstant.OUT_OF_STOCK, null);
   }
 
-  order.setPaymentMode("CASH");
-  order.setOrderStatus("IN-PROGRESS");
+  order.setPaymentMode(OrderConstant.CASH);
+  order.setOrderStatus(OrderConstant.ORDER_IN_PROGRESS);
   order.setUserEmail(response.getData().getUserId());
   order.setOrderTotal(response.getData().getSubTotal());
   order.setOrderDate(new Date());
@@ -172,7 +172,7 @@ public class OrderServiceImpl implements OrderService {
   Date deliveryDate = order.getDeliveryDate();
   Order orderEntity = this.getOrder(order.getOrderId());
   if(orderEntity == null) {
-   throw new BadRequestException("Order not found");
+   throw new BadRequestException(OrderConstant.ORDER_NOT_FOUND_ERROR);
   }
   if(status != null && !status.isEmpty()){
    logger.info(OrderConstant.INPROGRES

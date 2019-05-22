@@ -28,7 +28,6 @@ import java.util.Collections;
  *
  * @author shikhar.a || ankit-kumar
  */
-
 @RunWith(value = PowerMockRunner.class)
 @PrepareForTest({ResponseUtil.class, HttpStatus.class})
 public class ResponseUtilTest {
@@ -57,10 +56,8 @@ public class ResponseUtilTest {
      *
      * @throws Exception
      */
-
     @Before
     public void setUp() throws Exception {
-//        this.responseUtil = PowerMockito.spy(new ResponseUtil(orderMock));
         MockitoAnnotations.initMocks(this);
     }
 

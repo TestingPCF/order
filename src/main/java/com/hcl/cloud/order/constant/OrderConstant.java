@@ -98,6 +98,28 @@ public final class OrderConstant {
   * AUTHORIZATION_TOKEN.
   */
  public static final String AUTHORIZATION_TOKEN = "accessToken";
+ /**
+  * CART_CONNECTION_ERROR.
+  */
+ public static final String CART_CONNECTION_ERROR = "Error while contacting to " +
+            "cart service.";
+ /**
+  * INVENTORY_CONNECTION_ERROR.
+  */
+ public static final String INVENTORY_CONNECTION_ERROR = "Error while contacting" +
+         " to inventory service.";
+ /**
+  * ORDER_NOT_FOUND_ERROR.
+  */
+ public static final String ORDER_NOT_FOUND_ERROR = "Order not found";
+ /**
+  * CASH.
+  */
+ public static final String CASH = "CASH";
+ /**
+  * ORDER_IN_PROGRESS.
+  */
+ public static final String ORDER_IN_PROGRESS = "IN-PROGRESS";
 
  /**
   * Constructor.

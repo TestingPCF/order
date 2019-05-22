@@ -1,7 +1,5 @@
 package com.hcl.cloud.order.service.impl;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hcl.cloud.order.client.RestClient;
 import com.hcl.cloud.order.constant.OrderConstant;
 import com.hcl.cloud.order.dto.CartItem;
@@ -18,7 +16,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
@@ -34,9 +31,8 @@ import java.util.*;
 /*
  * Test class for OrderServiceImpl.
  * @author shikhar.a || ankit-kumar
- * */
-
-
+ *
+ */
 @RunWith(value = PowerMockRunner.class)
 @PrepareForTest({Optional.class, Order.class, RestClient.class,
         ResponseUtil.class})

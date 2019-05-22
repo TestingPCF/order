@@ -10,6 +10,10 @@ import org.powermock.modules.junit4.PowerMockRunner;
 
 import java.io.IOException;
 
+/**
+ * This is a test class for SwaggerConfig.
+ * @author shikhar.a
+ */
 @RunWith(value = PowerMockRunner.class)
 public class SwaggerConfigTest {
     /**

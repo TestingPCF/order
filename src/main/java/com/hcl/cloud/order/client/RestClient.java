@@ -25,32 +25,28 @@ import com.hcl.cloud.order.entity.Inventory;
 /**
  * This class will treat as a client for rest apis.
  * 
- * @author shikhar.a || ankit-kumar
+ * @author shikhar.a || ankit-kumar || mohitkri
  */
 @Component
 public class RestClient {
-
+    /**
+     * Instance of InventoryServiceClient.
+     */
     private static InventoryServiceClient inventoryServiceClient;
 
+    /**
+     * autowiring InventoryServiceClient.
+     * @param client InventoryServiceClient
+     */
     @Autowired
     public void setInventoryServiceClient(InventoryServiceClient client) {
         RestClient.inventoryServiceClient = client;
     }
 
     /**
-     * inventorReadUri.
-     */
-    // private static String inventorReadUri;
-
-    /**
      * cartUri.
      */
     private static String cartUri = "//cart";
-
-    /**
-     * inventorUpdateUri.
-     */
-    // private static String inventorUpdateUri;
 
     /**
      * logger.
@@ -96,16 +92,6 @@ public class RestClient {
                     params.put("skuCode", shoppingItem.getItemCode());
                     params.put("quantity", shoppingItem.getQuantity() + "");
                     try {
-                        /*
-                         * ResponseEntity<Object> inventoryResponse =
-                         * restTemplate.exchange(inventorReadUri, HttpMethod.GET, entity, Object.class,
-                         * params);
-                         */
-                        /*
-                         * ResponseEntity<Object> inventoryResponse =
-                         * restTemplate.exchange(inventorReadUri, HttpMethod.GET, entity, Object.class,
-                         * params);
-                         */
                         LOGGER.info(" Calling Inventory Read using FeignClient using class : ");
                         ResponseEntity<Object> inventoryResponse = inventoryServiceClient
                                 .readInventory(shoppingItem.getItemCode(), shoppingItem.getQuantity());
@@ -147,27 +133,6 @@ public class RestClient {
     public final void printApplication() {
         System.out.println("Rest Client initialized::");
     }
-
-    /**
-     * inventorReadUri.
-     * 
-     * @param inventorReadUriParam
-     *            inventorReadUri
-     */
-    /*
-     * @Value("${inventorReadUri}") public final void setInventoryUri(final String
-     * inventorReadUriParam) { this.inventorReadUri = inventorReadUriParam; }
-     * 
-     *//**
-        * setInventorUpdateUri.
-        * 
-        * @param inventorUpdateUriParam
-        *            inventorUpdateUri
-        *//*
-           * @Value("${inventorUpdateUri}") public final void setInventorUpdateUri(final
-           * String inventorUpdateUriParam) { this.inventorUpdateUri =
-           * inventorUpdateUriParam; }
-           */
 
     /**
      * setCartUri.
