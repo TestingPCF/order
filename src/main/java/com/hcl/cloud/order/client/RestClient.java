@@ -6,16 +6,13 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.RestTemplate;
 
 import com.hcl.cloud.order.constant.OrderConstant;
 import com.hcl.cloud.order.dto.CartItem;
@@ -35,8 +32,15 @@ public class RestClient {
     private static InventoryServiceClient inventoryServiceClient;
 
     /**
+     * Instance of CartServiceClient.
+     */
+    private static CartServiceClient cartServiceClient;
+
+    /**
      * autowiring InventoryServiceClient.
-     * @param client InventoryServiceClient
+     * 
+     * @param client
+     *            InventoryServiceClient
      */
     @Autowired
     public void setInventoryServiceClient(InventoryServiceClient client) {
@@ -44,9 +48,17 @@ public class RestClient {
     }
 
     /**
+     * @param client
+     */
+    @Autowired
+    public void setCartServiceClient(CartServiceClient client) {
+        RestClient.cartServiceClient = client;
+    }
+
+    /**
      * cartUri.
      */
-    private static String cartUri = "//cart";
+    // private static String cartUri = "//cart";
 
     /**
      * logger.
@@ -67,7 +79,7 @@ public class RestClient {
     public static ResponseEntity<Object> getResponseFromMS(final String serviceName, final Object object,
             final String authorization) {
         try {
-            RestTemplate restTemplate = new RestTemplate();
+            // RestTemplate restTemplate = new RestTemplate();
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
             headers.set(OrderConstant.AUTHORIZATION_TOKEN, authorization);
@@ -76,8 +88,12 @@ public class RestClient {
             switch (serviceName) {
             case "cart":
                 try {
-                    ResponseEntity<Object> response = restTemplate.exchange(cartUri, HttpMethod.GET, entity,
-                            Object.class);
+                    /*
+                     * ResponseEntity<Object> response = restTemplate.exchange(cartUri,
+                     * HttpMethod.GET, entity, Object.class);
+                     */
+                    LOGGER.info(" Calling cart Read using FeignClient using class : ");
+                    ResponseEntity<Object> response = cartServiceClient.getCart(authorization);
                     return response;
                 } catch (HttpClientErrorException e) {
                     throw e;
@@ -140,8 +156,8 @@ public class RestClient {
      * @param cartUriParam
      *            cartUri
      */
-    @Value("${cartUri}")
-    public final void setCartUri(final String cartUriParam) {
-        this.cartUri = cartUriParam;
-    }
+    /*
+     * @Value("${cartUri}") public final void setCartUri(final String cartUriParam)
+     * { this.cartUri = cartUriParam; }
+     */
 }
