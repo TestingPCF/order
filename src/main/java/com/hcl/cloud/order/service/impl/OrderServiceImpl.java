@@ -63,7 +63,7 @@ public class OrderServiceImpl implements OrderService {
    cartResponse = RestClient.getResponseFromMS(OrderConstant.INVERNTORY_CART,
            null, authToken);
   } catch (Exception e) {
-   logger.info(OrderConstant.ERROR
+   logger.error(OrderConstant.ERROR
            + OrderConstant.ORDER_CREATING_INFO);
    if (e instanceof HttpClientErrorException) {
     HttpStatus status = ((HttpClientErrorException) e).getStatusCode();
@@ -96,7 +96,7 @@ public class OrderServiceImpl implements OrderService {
                    .INVERNTORY_READ,
            response, authToken);
   } catch (Exception e) {
-   logger.info(OrderConstant.ERROR
+   logger.error(OrderConstant.ERROR
            + OrderConstant.ORDER_CREATING_INFO
            + order.getUserEmail());
    if (e instanceof HttpClientErrorException) {
@@ -113,7 +113,7 @@ public class OrderServiceImpl implements OrderService {
    }
   }
   if (inventoryResponse.getStatusCode() == HttpStatus.EXPECTATION_FAILED) {
-   logger.info(OrderConstant.ERROR
+   logger.error(OrderConstant.ERROR
            + OrderConstant.ORDER_CREATING_INFO
            + order.getUserEmail());
    return ResponseUtil.getResponseEntity(HttpStatus.BAD_REQUEST,
