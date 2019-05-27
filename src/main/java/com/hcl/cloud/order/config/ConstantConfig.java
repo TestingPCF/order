@@ -23,6 +23,7 @@ public class ConstantConfig {
 		return successUpdate;
 	}
 
+    @Value("${order.update.success.message}")
 	public void setSuccessUpdate(String successUpdate) {
 		this.successUpdate = successUpdate;
 	}
