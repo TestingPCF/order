@@ -151,7 +151,8 @@ public class OrderController {
                     + OrderConstant.ORDER_UPDATING_INFO
                     + order.getOrderId());
             return ResponseUtil.getResponseEntity(HttpStatus.OK,
-                    OrderConstant.ORDER_UPDATED, null);
+                   // OrderConstant.ORDER_UPDATED, null);
+            		constantConfig.getSuccessUpdate(), null);
         } catch (BadRequestException e) {
             logger.info(OrderConstant.ERROR
                     + OrderConstant.ORDER_UPDATING_INFO

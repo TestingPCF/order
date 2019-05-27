@@ -16,8 +16,18 @@ public class ConstantConfig {
      * Constant for successRetrieve.
      */
     private String successRetrieve;
+    
+    private String successUpdate;
 
-    /**
+    public String getSuccessUpdate() {
+		return successUpdate;
+	}
+
+	public void setSuccessUpdate(String successUpdate) {
+		this.successUpdate = successUpdate;
+	}
+
+	/**
      * Getter of successRetrieve.
      * @return successRetrieve successRetrieve
      */
