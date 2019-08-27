@@ -1,7 +1,7 @@
 ---
 applications:
   - name: orderecomm
-    memory: 768M
+    memory: 769M
     instances: 1
     routes:
       - route: orderecomm.apps.sandbox.cflab01.in.hclcnlabs.com
